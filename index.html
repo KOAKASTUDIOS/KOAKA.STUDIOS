@@ -1,0 +1,3937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOAKA STUDIOS — Beat Marketplace</title>
+<meta name="description" content="Heaven Is Rare — trap and hip-hop beats by GUMMY, served from a vending machine. Preview before you buy. Instant delivery.">
+<meta name="theme-color" content="#060408">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Koaka Studios">
+<meta property="og:title" content="HEAVEN IS RARE — Beats by GUMMY">
+<meta property="og:description" content="Select your frequency. Trap and hip-hop beats, previewed before you buy.">
+<meta property="og:image" content="assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HEAVEN IS RARE — Beats by GUMMY">
+<meta name="twitter:description" content="Select your frequency. Trap and hip-hop beats, previewed before you buy.">
+<meta name="twitter:image" content="assets/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Koaka Studios palette — pulled from logo */
+  --bg: #060304;               /* near-black with warm undertone */
+  --surface: #0e080c;
+  --card: #140a10;
+  --border: #2a1520;
+  --glass-tint: rgba(255,100,180,0.03);
+  --machine-silver: #c8b8c0;
+  --machine-dark: #1a0e14;
+  --machine-mid: #2e1825;
+  --neon-cyan: #ff5eb0;        /* HOT PINK — primary accent */
+  --neon-pink: #ff2d78;        /* DEEP ROSE */
+  --neon-gold: #ffb5d8;        /* SOFT ROSE-GOLD */
+  --neon-purple: #c060a0;      /* MUTED MAUVE */
+  --neon-orange: #ff82b4;      /* BLUSH PINK */
+  --neon-green: #ffcce8;       /* PALE PINK highlight */
+  --text: #f0dce8;             /* warm off-white with pink hue */
+  --muted: #6a3a52;            /* deep muted rose */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100vw;
+}
+
+/* Every direct child of body fills width so full-bleed sections work */
+body > * {
+  width: 100%;
+}
+
+/* ── FULL-PAGE LOGO BACKGROUND ── */
+#bg-logo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#bg-logo img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  /* Seamless blend — logo fades INTO background */
+  opacity: 0.42;
+  filter: saturate(1.2) brightness(0.65) blur(0px);
+  mix-blend-mode: luminosity;
+  mask-image: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.85) 45%,
+    rgba(0,0,0,0.4) 70%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.85) 45%,
+    rgba(0,0,0,0.4) 70%,
+    transparent 100%
+  );
+}
+
+/* Deep vignette over the bg logo so content stays legible */
+#bg-logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 82% 78% at 50% 50%,
+      transparent 0%,
+      rgba(6,3,4,0.1) 50%,
+      rgba(6,3,4,0.52) 75%,
+      rgba(6,3,4,0.95) 100%
+    );
+}
+
+/* BG GRID */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,80,160,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,80,160,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SCANLINES */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
+  pointer-events: none;
+  z-index: 9980;
+}
+
+/* ══════════ NAV ══════════ */
+nav {
+  position: sticky; top: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 40px;
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.logo { font-family: var(--font-display); font-size: 1.9rem; letter-spacing: 0.18em; }
+.logo em { color: var(--neon-cyan); font-style: normal; text-shadow: 0 0 16px rgba(0,240,208,0.6); }
+.nav-center {
+  font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted);
+  letter-spacing: 0.2em; text-transform: uppercase;
+}
+.nav-right { display: flex; align-items: center; gap: 8px; }
+
+/* Icon-only nav button. Both nav controls are these, so they sit as a
+   matched pair rather than one icon stranded beside a wide pill. */
+.icon-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; line-height: 1;
+  cursor: pointer; padding: 0;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.icon-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+.icon-btn.on {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0,240,208,0.18);
+}
+/* the emoji glyph itself carries the colour, so tint it to match the state */
+.icon-btn .ib-glyph { filter: grayscale(1) opacity(0.65); transition: filter 0.2s; }
+.icon-btn:hover .ib-glyph,
+.icon-btn.on .ib-glyph { filter: none; opacity: 1; }
+/* ══════════ TICKER ══════════ */
+.ticker {
+  background: var(--neon-cyan); overflow: hidden;
+  padding: 9px 0; white-space: nowrap;
+}
+.ticker-track { display: inline-flex; gap: 40px; animation: tick 22s linear infinite; }
+.ticker-track span {
+  font-family: var(--font-display); font-size: 0.8rem;
+  letter-spacing: 0.15em; color: #000;
+  display: flex; align-items: center; gap: 14px; flex-shrink: 0;
+}
+.ticker-track span::before { content: '◆'; font-size: 0.5rem; }
+@keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ══════════ PAGE LAYOUT ══════════ */
+.page {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 100px; /* less top so content hits viewport faster */
+  position: relative; z-index: 1;
+  display: grid;
+  /* equal side columns — the only way the middle stays page-centred no
+     matter what the left and right panels contain */
+  /* minmax(0,…) not plain 1fr: a bare 1fr refuses to shrink past its own
+     content, so the wordier left panel would steal width from the right and
+     shove the machine off-centre again at middling widths. */
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* ══════════ LEFT PANEL ══════════ */
+.left-panel { padding-top: 8px; }
+.left-eyebrow {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--neon-cyan); letter-spacing: 0.25em;
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.left-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--neon-cyan); }
+.left-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  letter-spacing: 0.05em; line-height: 0.92;
+  margin-bottom: 24px;
+}
+.left-title em { display: block; color: var(--neon-cyan); font-style: normal; }
+.left-desc {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--muted); line-height: 1.8; letter-spacing: 0.04em;
+  max-width: 340px; margin-bottom: 36px;
+}
+
+/* GENRE FILTER */
+.genre-label {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  color: var(--muted); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.genre-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 36px; }
+/* ══════════ TIER LADDER ══════════ */
+.tier-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.tpill {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 4px 12px;
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.18s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.tpill .tp-from {
+  color: var(--tier, var(--muted));
+  opacity: 0.75; margin-left: 2px; font-size: 0.55rem;
+}
+.tpill .tp-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--tier, var(--muted));
+  box-shadow: 0 0 5px var(--tier, transparent);
+}
+.tpill:hover { border-color: var(--tier, var(--neon-cyan)); color: var(--text); }
+.tpill.active {
+  border-color: var(--tier, var(--neon-cyan));
+  color: var(--text);
+  background: color-mix(in srgb, var(--tier, #00f0d0) 12%, transparent);
+}
+.tpill[data-t="all"].active { background: rgba(255,255,255,0.08); border-color: var(--muted); }
+
+/* tier marks on each slot */
+.bp-tier-stripe {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--tier, transparent);
+  box-shadow: 0 0 8px var(--tier, transparent);
+}
+/* Band 1: tier. Band 2: the beat. Band 3: stock + price. Each owns its own
+   row, so nothing can print through anything else. */
+.bp-top { display: flex; align-items: center; min-height: 8px; position: relative; z-index: 3; }
+.bp-mid {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1px;
+  position: relative; z-index: 3; min-width: 0;
+}
+.bp-bot {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 4px; position: relative; z-index: 3;
+}
+.bp-tier-chip {
+  font-family: var(--font-mono); font-size: 0.42rem;
+  letter-spacing: 0.1em; color: var(--tier, var(--muted));
+  opacity: 0.9; white-space: nowrap;
+}
+/* S tier earns a little shine the others don't get */
+.beat-product.tier-S {
+  box-shadow: inset 0 0 22px rgba(255,215,0,0.09), 0 0 14px rgba(255,215,0,0.07);
+}
+.beat-product.tier-S .bp-tier-chip {
+  background: linear-gradient(100deg,#8a6d00,#ffd700,#fff6c2,#ffd700,#8a6d00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: tiershine 5s linear infinite;
+  font-weight: 700;
+}
+@keyframes tiershine { from{background-position:300% 0} to{background-position:0 0} }
+
+/* tier line in the detail panel */
+.dc-tier { display: flex; align-items: center; gap: 9px; margin: 6px 0 2px; flex-wrap: wrap; }
+.dct-badge {
+  font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.16em;
+  color: var(--tier, var(--muted));
+  border: 1px solid var(--tier, var(--border));
+  padding: 2px 8px;
+}
+.dct-blurb {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: var(--muted); letter-spacing: 0.05em;
+}
+
+.gpill {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 5px 14px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.18s;
+}
+.gpill:hover, .gpill.active {
+  color: #000; border-color: transparent;
+}
+.gpill[data-g="all"].active { background: var(--neon-cyan); color: #000; }
+.gpill[data-g="trap"].active { background: var(--neon-pink); }
+.gpill[data-g="drill"].active { background: var(--neon-orange); }
+.gpill[data-g="lo-fi"].active { background: var(--neon-purple); }
+.gpill[data-g="afrobeats"].active { background: var(--neon-gold); }
+.gpill[data-g="rnb"].active { background: var(--neon-cyan); }
+.gpill[data-g="phonk"].active { background: #ff2d2d; }
+.gpill[data-g="jersey"].active { background: var(--neon-green); }
+.gpill[data-g="boom-bap"].active { background: #ff9ef5; color:#000; }
+
+/* STATS MINI */
+.stats-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+.si-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.si-val {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  background: linear-gradient(135deg, rgba(255,160,210,0.9), rgba(255,255,255,0.7), rgba(255,120,190,0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.si-label {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.si-dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(255,80,160,0.3);
+  flex-shrink: 0;
+  align-self: center;
+  margin: 0 2px;
+}
+.stat-mini:nth-child(1) .stat-mini-val { color: var(--neon-cyan); }
+.stat-mini:nth-child(2) .stat-mini-val { color: var(--neon-pink); }
+.stat-mini:nth-child(3) .stat-mini-val { color: var(--neon-gold); }
+.stat-mini:nth-child(4) .stat-mini-val { color: var(--neon-purple); }
+
+/* ══════════ VENDING MACHINE ══════════ */
+.vm-wrap {
+  position: relative;
+  /* 400 cabinet + 76 of side panel overhanging it = the machine's true
+     visual width. Making the wrap exactly that means centring the wrap
+     centres what you actually see, panel included. */
+  width: 476px;
+  max-width: 100%;
+  flex-shrink: 0;
+  filter: drop-shadow(0 30px 80px rgba(0,0,0,0.8));
+  justify-self: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.vm-shell { flex-shrink: 0; }
+
+/* Machine outer shell */
+.vm-shell {
+  position: relative;
+  width: 100%; max-width: 400px;
+  background: linear-gradient(160deg, #2a2d38 0%, #1e2028 40%, #16181f 100%);
+  border-radius: 12px 12px 8px 8px;
+  padding: 14px 14px 28px 14px;
+  box-shadow:
+    inset -4px 0 12px rgba(0,0,0,0.5),
+    inset 4px 0 8px rgba(255,255,255,0.03),
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 40px 80px rgba(0,0,0,0.7);
+}
+
+/* Top brand strip */
+.vm-brand-strip {
+  background: linear-gradient(90deg, #0a0a0f 0%, #111118 50%, #0a0a0f 100%);
+  border-radius: 6px 6px 0 0;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,240,208,0.15);
+  box-shadow: 0 0 20px rgba(0,240,208,0.08);
+}
+.vm-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem; letter-spacing: 0.2em;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 20px rgba(0,240,208,0.8), 0 0 40px rgba(0,240,208,0.4);
+}
+.vm-led {
+  display: flex; gap: 5px; align-items: center;
+}
+.vm-led-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  animation: ledpulse 1.8s ease-in-out infinite;
+}
+.vm-led-dot:nth-child(1) { background: #ff4444; animation-delay: 0s; }
+.vm-led-dot:nth-child(2) { background: var(--neon-gold); animation-delay: 0.3s; }
+.vm-led-dot:nth-child(3) { background: var(--neon-green); animation-delay: 0.6s; }
+@keyframes ledpulse { 0%,100%{opacity:1;box-shadow:0 0 6px currentColor} 50%{opacity:0.4;box-shadow:none} }
+
+/* Glass window */
+.vm-glass {
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(160,210,255,0.07) 0%, rgba(100,160,220,0.02) 50%, rgba(160,210,255,0.06) 100%),
+    #080810;
+  border: 2px solid rgba(180,210,255,0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.6),
+    inset 0 2px 4px rgba(255,255,255,0.05),
+    0 0 30px rgba(0,240,208,0.05);
+}
+
+/* An empty coil: the slot is there, the product is not */
+.empty-slot {
+  background: linear-gradient(160deg, rgba(255,255,255,0.016), rgba(0,0,0,0.3)) !important;
+  border: 1px solid rgba(255,255,255,0.04) !important;
+  cursor: default !important;
+  box-shadow: inset 0 6px 16px rgba(0,0,0,0.55) !important;
+}
+.empty-slot:hover { transform: none !important; filter: none !important; }
+.empty-slot .bp-coil { opacity: 0.4; }
+
+/* ══════════ CATALOGUE ══════════ */
+.cat-overlay {
+  position: fixed; inset: 0; z-index: 600;   /* nav is 500; this covers it */
+  background: rgba(4,2,6,0.93);
+  backdrop-filter: blur(16px);
+  display: none; overflow-y: auto;
+  animation: catIn 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.cat-overlay.open { display: block; }
+@keyframes catIn { from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+
+.cat-wrap { max-width: 860px; margin: 0 auto; padding: 26px 20px 80px; }
+
+.cat-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 4px;
+}
+.cat-title {
+  font-family: var(--font-display); font-size: 2.5rem;
+  letter-spacing: 0.1em; line-height: 1;
+  background: linear-gradient(160deg,#8a8a8a 0%,#fff 32%,#c6c6c6 52%,#fff 72%,#909090 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cat-sub {
+  font-family: 'Dancing Script', cursive; font-size: 0.95rem;
+  color: rgba(255,120,190,0.45); margin-top: 1px;
+}
+.cat-close {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); width: 34px; height: 34px; flex-shrink: 0;
+  font-size: 1rem; line-height: 1; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.cat-close:hover { border-color: var(--neon-pink,#ff2d78); color: #ff2d78; }
+
+/* top of the week */
+.cat-top {
+  margin: 20px 0 22px; padding: 16px 18px;
+  border: 1px solid rgba(255,215,0,0.25);
+  background: linear-gradient(135deg, rgba(255,215,0,0.07), rgba(255,45,120,0.04));
+  position: relative; overflow: hidden;
+}
+.cat-top::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(118deg, transparent 38%, rgba(255,255,255,0.05) 44%, transparent 52%);
+}
+.cat-top-label {
+  font-family: var(--font-mono); font-size: 0.52rem;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: #ffd700; margin-bottom: 7px;
+}
+.cat-top-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.cat-top-row > div:first-child { flex: 1; min-width: 150px; }
+.cat-top-name {
+  font-family: var(--font-display); font-size: 1.7rem;
+  letter-spacing: 0.06em; line-height: 1;
+}
+.cat-top-meta {
+  font-family: var(--font-mono); font-size: 0.56rem;
+  color: var(--muted); letter-spacing: 0.08em; margin-top: 4px;
+}
+
+/* controls */
+.cat-search-row { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.cat-search {
+  flex: 1; min-width: 180px;
+  background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.05em; padding: 10px 14px; outline: none;
+  transition: border-color 0.2s;
+}
+.cat-search:focus { border-color: #ff2d78; }
+.cat-search::placeholder { color: rgba(255,255,255,0.2); }
+.cat-search::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.cat-count {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--muted); letter-spacing: 0.12em;
+  display: flex; align-items: center; padding: 0 4px;
+}
+.cat-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 16px; }
+.cat-pill {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 4px 12px;
+  font-family: var(--font-mono); font-size: 0.56rem;
+  letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.18s;
+}
+.cat-pill:hover { color: var(--text); border-color: var(--c, #ff2d78); }
+.cat-pill.on {
+  color: var(--text); border-color: var(--c, #ff2d78);
+  background: color-mix(in srgb, var(--c,#ff2d78) 14%, transparent);
+}
+
+/* rows */
+.cat-list { display: flex; flex-direction: column; gap: 5px; }
+.cat-row {
+  display: flex; align-items: center; gap: 13px;
+  padding: 12px 15px 12px 13px;
+  border: 1px solid var(--border);
+  background: rgba(10,6,12,0.6);
+  position: relative; cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+}
+.cat-row::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background: var(--tier); box-shadow: 0 0 8px var(--tier);
+}
+.cat-row:hover { border-color: var(--c); background: rgba(16,10,18,0.8); }
+.cat-row.playing { border-color: var(--c); background: color-mix(in srgb, var(--c) 9%, rgba(10,6,12,0.6)); }
+
+.cat-play {
+  width: 32px; height: 32px; flex-shrink: 0;
+  border: 1px solid var(--c); background: transparent; color: var(--c);
+  font-size: 0.68rem; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; line-height: 1;
+  transition: background 0.18s;
+}
+.cat-play:hover { background: color-mix(in srgb, var(--c) 20%, transparent); }
+.cat-play.none { border-color: var(--border); color: var(--muted); cursor: default; }
+
+.cat-main { flex: 1; min-width: 0; }
+.cat-name {
+  font-family: var(--font-display); font-size: 1.05rem;
+  letter-spacing: 0.05em; line-height: 1.1;
+}
+.cat-meta {
+  font-family: var(--font-mono); font-size: 0.53rem;
+  color: var(--muted); letter-spacing: 0.07em; margin-top: 3px;
+}
+.cat-tierchip {
+  font-family: var(--font-mono); font-size: 0.44rem;
+  letter-spacing: 0.12em; color: var(--tier);
+  border: 1px solid var(--tier); padding: 1px 6px;
+  flex-shrink: 0; white-space: nowrap;
+}
+.cat-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.cat-price {
+  font-family: var(--font-display); font-size: 1.15rem;
+  letter-spacing: 0.04em; color: var(--c);
+}
+.cat-buy {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.12em; text-decoration: none;
+  border: 1px solid var(--c); color: var(--c);
+  padding: 6px 13px; white-space: nowrap;
+  transition: background 0.18s;
+}
+.cat-buy:hover { background: color-mix(in srgb, var(--c) 22%, transparent); }
+.cat-soon {
+  font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.1em; color: var(--muted);
+  border: 1px solid var(--border); padding: 6px 11px; white-space: nowrap;
+}
+.cat-empty {
+  text-align: center; padding: 40px 20px;
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--muted); letter-spacing: 0.12em; line-height: 2;
+}
+
+/* the side panel is now a door into the catalogue */
+.vm-side { cursor: pointer; }
+.vm-side-hint {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 0.36rem;
+  letter-spacing: 0.1em; color: rgba(255,255,255,0.3);
+  white-space: nowrap; pointer-events: none;
+  animation: hintPulse 2.6s ease-in-out infinite;
+}
+@keyframes hintPulse { 0%,100%{opacity:0.35} 50%{opacity:0.9} }
+
+@media (max-width: 600px) {
+  /* The logo block was 285px and wouldn't shrink, so on a 360px phone it
+     pushed the nav buttons past the edge where overflow:hidden clipped them.
+     Smaller mark, tighter tracking, and allowed to shrink. */
+  .logo-wrap { min-width: 0; flex-shrink: 1; gap: 8px; }
+  .nav-logo-img { width: 32px; height: 32px; flex-shrink: 0; }
+  .logo-chrome-text {
+    font-size: 1.05rem; letter-spacing: 0.08em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .nav-right { flex-shrink: 0; }
+
+  .vm-side-hint { display: none; }
+  .cat-wrap { padding: 18px 13px 60px; }
+  .cat-title { font-size: 1.9rem; }
+  .cat-row { gap: 9px; padding: 10px 11px 10px 10px; flex-wrap: wrap; }
+  .cat-tierchip { order: 3; }
+  .cat-right { width: 100%; justify-content: space-between; order: 4; }
+  .cat-name { font-size: 0.95rem; }
+}
+
+/* ══════════ COIL + STACK DEPTH ══════════ */
+
+/* The dispensing coil: slanted metal, the one thing every vending machine has */
+.bp-coil {
+  position: absolute; left: 3px; right: 3px; bottom: 2px; height: 6px;
+  z-index: 2; pointer-events: none;
+  background: repeating-linear-gradient(68deg,
+    transparent 0px, transparent 3.2px,
+    rgba(96,110,136,0.30) 3.2px, rgba(96,110,136,0.30) 4.2px,
+    rgba(214,226,244,0.62) 4.2px, rgba(214,226,244,0.62) 5.9px,
+    rgba(96,110,136,0.30) 5.9px, rgba(96,110,136,0.30) 6.9px,
+    transparent 6.9px, transparent 10px);
+  border-bottom: 1px solid rgba(200,215,240,0.14);
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.65));
+  opacity: 0.7;
+}
+.beat-product:hover .bp-coil { opacity: 1; }
+
+/* Copies waiting behind the front one — their top edges catching the light */
+.bp-stack { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.bp-stack i {
+  position: absolute;
+  left: calc(4px + var(--i) * 3.5px);
+  right: calc(4px + var(--i) * 3.5px);
+  top: calc(1px + var(--i) * 2.2px);
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+  opacity: calc(0.85 - var(--i) * 0.26);
+}
+
+/* 1-of-1 marker where the stack would have been */
+.bp-stock {
+  font-family: var(--font-mono); font-size: 0.36rem;
+  letter-spacing: 0.08em; color: rgba(255,255,255,0.4);
+  line-height: 1.6; white-space: nowrap;
+}
+.beat-product.tier-S .bp-stock { color: rgba(255,215,0,0.75); }
+
+/* content rides above the stack */
+.bp-tier-stripe { z-index: 3; }
+
+/* Glass reflection streaks */
+.vm-glass::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 100;
+  /* one wide diagonal sweep plus a narrow trailing one — the giveaway that
+     there is a sheet of glass between you and the shelves */
+  background: linear-gradient(116deg,
+    transparent 0%, transparent 26%,
+    rgba(255,255,255,0.045) 32%,
+    rgba(255,255,255,0.085) 36.5%,
+    rgba(255,255,255,0.025) 41%,
+    transparent 48%,
+    transparent 63%,
+    rgba(255,255,255,0.038) 67%,
+    rgba(255,255,255,0.012) 71%,
+    transparent 77%);
+}
+.vm-glass::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 100;
+  background:
+    /* strip light above the machine, curving off the top of the glass */
+    radial-gradient(135% 48% at 20% -14%, rgba(205,228,255,0.11), transparent 62%),
+    /* soft bounce low right */
+    radial-gradient(70% 38% at 88% 104%, rgba(160,200,255,0.05), transparent 70%),
+    /* vignette: pushes the shelves back into the cabinet */
+    radial-gradient(118% 108% at 50% 46%, transparent 52%, rgba(0,0,0,0.42) 100%);
+}
+
+/* Shelves container */
+.vm-shelves {
+  padding: 10px 8px 8px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+
+/* Individual shelf */
+.vm-shelf {
+  position: relative;
+}
+
+/* Shelf label row */
+.shelf-label-row {
+  display: flex;
+  padding: 0 4px;
+  margin-bottom: 2px;
+}
+.shelf-slot-label {
+  font-family: var(--font-mono); font-size: 0.48rem;
+  color: rgba(255,255,255,0.25); letter-spacing: 0.08em;
+  flex: 1; text-align: center;
+}
+
+/* Products row */
+.shelf-products {
+  display: flex;
+  gap: 3px;
+  align-items: stretch;
+  padding: 0 4px;
+  min-height: 94px;
+}
+
+/* Each beat "product" in the machine */
+.beat-product {
+  flex: 1;
+  min-height: 88px;
+  max-height: 98px;
+  border-radius: 3px;
+  display: flex; flex-direction: column;
+  align-items: stretch; justify-content: space-between;
+  padding: 5px 5px 11px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, filter 0.2s;
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+.beat-product::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.beat-product:hover {
+  transform: translateY(-4px) scale(1.04);
+  filter: brightness(1.2);
+  z-index: 10;
+  border-color: rgba(255,255,255,0.3);
+}
+
+.beat-product.sold {
+  opacity: 0.28;
+  filter: grayscale(0.8);
+  cursor: not-allowed;
+}
+.beat-product.sold:hover { transform: none; filter: grayscale(0.8); }
+
+/* Beat product label area */
+.bp-cat-line {
+  font-family: var(--font-mono); font-size: 0.42rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.85; margin-bottom: 3px; text-align: center;
+}
+.bp-title {
+  font-family: var(--font-display); font-size: 0.66rem;
+  letter-spacing: 0.05em; text-align: center; line-height: 1.08;
+}
+.bp-bpm {
+  font-family: var(--font-mono); font-size: 0.38rem;
+  letter-spacing: 0.05em; opacity: 0.6; margin-top: 2px;
+}
+.bp-price-tag {
+  font-family: var(--font-display); font-size: 0.58rem;
+  letter-spacing: 0.04em; line-height: 1; white-space: nowrap;
+}
+
+/* Shelf divider rail */
+.shelf-rail {
+  height: 5px;
+  background: linear-gradient(90deg,
+    rgba(60,65,80,0.4) 0%,
+    rgba(120,130,150,0.7) 20%,
+    rgba(180,190,210,0.5) 50%,
+    rgba(120,130,150,0.7) 80%,
+    rgba(60,65,80,0.4) 100%
+  );
+  border-radius: 1px;
+  margin-top: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+  position: relative;
+}
+.shelf-rail::before {
+  content: '';
+  position: absolute; top: 1px; left: 0; right: 0; height: 1px;
+  background: rgba(255,255,255,0.18);
+}
+
+/* Code labels under rail */
+.shelf-codes {
+  display: flex;
+  padding: 2px 4px 0;
+  gap: 3px;
+}
+.shelf-code {
+  flex: 1; text-align: center;
+  font-family: var(--font-mono); font-size: 0.4rem;
+  color: rgba(255,255,255,0.18); letter-spacing: 0.06em;
+}
+
+/* ── MACHINE SIDE PANEL ── */
+.vm-side {
+  position: absolute;
+  right: -76px; top: 0; bottom: 0;
+  width: 74px;
+  background: linear-gradient(160deg, #1e2028, #14151c);
+  border-radius: 0 10px 10px 0;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: none;
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 18px 10px;
+  gap: 14px;
+}
+
+/* Screen / display */
+.vm-screen {
+  width: 52px; height: 38px;
+  background: #001a12;
+  border: 1px solid rgba(0,240,208,0.3);
+  border-radius: 3px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  box-shadow: 0 0 12px rgba(0,240,208,0.2), inset 0 0 10px rgba(0,0,0,0.8);
+  overflow: hidden;
+  position: relative;
+}
+.vm-screen-text {
+  font-family: var(--font-mono); font-size: 0.52rem;
+  color: var(--neon-cyan); letter-spacing: 0.06em;
+  text-align: center; line-height: 1.4;
+}
+.vm-screen-cursor {
+  display: inline-block; width: 5px; height: 8px;
+  background: var(--neon-cyan); animation: blink 1s step-end infinite;
+  vertical-align: text-bottom; margin-left: 1px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Card reader */
+.vm-card-reader {
+  width: 44px; height: 28px;
+  background: #0d0e14;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.vm-card-slot {
+  width: 32px; height: 4px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 1px;
+}
+
+/* Keypad */
+.vm-keypad {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 4px; width: 52px;
+}
+.vm-key {
+  aspect-ratio: 1;
+  background: #1e2030;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.5rem;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+.vm-key:hover { background: rgba(0,240,208,0.15); color: var(--neon-cyan); }
+.vm-key:active { background: var(--neon-cyan); color: #000; }
+
+/* Coin slot */
+.vm-coin-slot {
+  width: 36px; height: 8px;
+  background: #0a0b10;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.vm-coin-slot::after {
+  content: '';
+  position: absolute; left: 8px; top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 2px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 1px;
+}
+
+/* Machine bottom */
+.vm-bottom {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #2a2d38, #1a1c22);
+  border-radius: 0 0 8px 8px;
+  padding: 14px 20px 10px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-top: none;
+}
+.vm-push {
+  background: linear-gradient(135deg, #888fa0, #a8b0c0, #888fa0);
+  color: #1a1c22;
+  font-family: var(--font-display);
+  font-size: 1.4rem; letter-spacing: 0.3em;
+  padding: 10px 40px;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.3),
+    inset 0 -2px 4px rgba(0,0,0,0.3),
+    0 4px 12px rgba(0,0,0,0.5);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.vm-push:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2), 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* Machine feet */
+.vm-feet {
+  display: flex; justify-content: space-around;
+  padding: 0 40px; margin-top: 0;
+}
+.vm-foot {
+  width: 26px; height: 14px;
+  background: radial-gradient(ellipse at top, #2a2d38, #111318);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 0 0 8px 8px;
+}
+
+/* Neon glow around machine when beat selected */
+.vm-shell.active-glow {
+  box-shadow:
+    inset -4px 0 12px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(0,240,208,0.3),
+    0 0 40px rgba(0,240,208,0.15),
+    0 40px 80px rgba(0,0,0,0.7);
+}
+
+/* ══════════ RIGHT PANEL ══════════ */
+.right-panel {}
+
+/* Selected beat detail card */
+.detail-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 28px;
+  margin-bottom: 2px;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.detail-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 12px rgba(0,240,208,0.6);
+  transition: background 0.4s;
+}
+
+.dc-empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  height: 260px; gap: 12px;
+}
+.dc-empty-icon {
+  font-size: 2.5rem; opacity: 0.15;
+}
+.dc-empty-text {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--muted); letter-spacing: 0.12em;
+  text-align: center; line-height: 1.8;
+}
+.dc-empty-arrow {
+  font-family: var(--font-display); font-size: 1rem;
+  color: var(--muted); letter-spacing: 0.1em;
+  opacity: 0.5;
+  animation: pointleft 1.5s ease-in-out infinite;
+}
+@keyframes pointleft { 0%,100%{transform:translateX(0)} 50%{transform:translateX(-8px)} }
+
+.dc-content { display: none; }
+.dc-content.visible { display: block; }
+
+.dc-slot-code {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  color: var(--muted); letter-spacing: 0.2em; margin-bottom: 6px;
+}
+.dc-cat {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.dc-title {
+  font-family: var(--font-display); font-size: 2.8rem;
+  letter-spacing: 0.06em; line-height: 0.95;
+  margin-bottom: 16px;
+  transition: color 0.3s;
+}
+.dc-title-sub {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  color: var(--muted); letter-spacing: 0.08em; margin-bottom: 20px;
+}
+
+/* Waveform */
+.dc-waveform {
+  height: 42px;
+  display: flex; align-items: center; gap: 2px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.dc-wave-bar {
+  flex: 1; background: var(--neon-cyan); border-radius: 1px;
+  animation: waveanim var(--s) ease-in-out infinite alternate;
+  transition: background 0.3s;
+}
+@keyframes waveanim { from{height:var(--a)} to{height:var(--b)} }
+
+.dc-meta-row {
+  display: flex; gap: 0; margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+.dc-meta-item {
+  flex: 1; padding: 10px 12px;
+  border-right: 1px solid var(--border);
+}
+.dc-meta-item:last-child { border-right: none; }
+.dc-meta-label {
+  font-family: var(--font-mono); font-size: 0.52rem;
+  color: var(--muted); letter-spacing: 0.15em; margin-bottom: 3px;
+}
+.dc-meta-val {
+  font-family: var(--font-display); font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+/* License options */
+.dc-licenses { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.dc-lic {
+  border: 1px solid var(--border); padding: 10px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.dc-lic:hover, .dc-lic.sel {
+  background: rgba(0,240,208,0.05);
+}
+.dc-lic.sel { border-color: var(--neon-cyan); }
+.dc-lic-name {
+  font-family: var(--font-body); font-size: 0.78rem; font-weight: 700;
+}
+.dc-lic-desc {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--muted); letter-spacing: 0.04em; margin-top: 1px;
+}
+.dc-lic-price {
+  font-family: var(--font-display); font-size: 1.2rem;
+  letter-spacing: 0.05em; transition: color 0.3s;
+}
+
+.buy-fallback {
+  display: none; margin-top: 9px; text-align: center;
+  font-family: var(--font-mono); font-size: 0.55rem;
+  color: var(--muted); letter-spacing: 0.06em; line-height: 1.7;
+  word-break: break-all;
+}
+.buy-fallback a { color: var(--neon-cyan); }
+.buy-btn.disabled {
+  background: rgba(255,255,255,0.07) !important;
+  color: var(--muted) !important;
+  cursor: default; box-shadow: none !important;
+}
+.buy-btn.disabled:hover { transform: none; box-shadow: none !important; }
+.buy-btn {
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 16px;
+  background: var(--neon-cyan); color: #000;
+  border: none; cursor: pointer;
+  font-family: var(--font-display); font-size: 1.3rem;
+  letter-spacing: 0.18em;
+  transition: transform 0.15s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,240,208,0.4);
+}
+.buy-btn:active { transform: translateY(0); }
+
+/* Payment icons */
+.pay-icons {
+  display: flex; gap: 6px; justify-content: center; margin-top: 10px;
+}
+.pay-icon {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); padding: 3px 10px;
+  font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.08em;
+}
+
+/* Recently sold */
+.recent-card {
+  background: var(--card); border: 1px solid var(--border);
+  padding: 20px 24px;
+}
+.rc-title {
+  font-family: var(--font-mono); font-size: 0.58rem;
+  color: var(--muted); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rc-title::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: blink 2s infinite;
+}
+.rc-list { display: flex; flex-direction: column; }
+.rc-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.rc-item:last-child { border-bottom: none; }
+.rc-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.rc-name { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; flex: 1; }
+.rc-amt { font-family: var(--font-display); font-size: 0.9rem; color: var(--neon-cyan); letter-spacing: 0.06em; }
+.rc-time { font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); }
+
+/* ══════════ NOW PLAYING BAR ══════════ */
+.npbar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,10,15,0.96); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 12px 40px;
+  display: flex; align-items: center; gap: 20px;
+  z-index: 400;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.npbar.up { transform: translateY(0); }
+.np-info { flex: 1; }
+.np-beat-name { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.08em; }
+.np-beat-sub { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.06em; margin-top: 1px; }
+
+.np-status {
+  font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.14em; color: var(--neon-cyan);
+  margin-top: 3px; display: none;
+}
+
+.np-prog-wrap { width: 190px; flex-shrink: 0; }
+.np-prog {
+  height: 3px; background: rgba(255,255,255,0.1);
+  border-radius: 2px; overflow: hidden;
+}
+.np-fill {
+  height: 100%; width: 0%;
+  background: var(--neon-cyan);
+  border-radius: 2px;
+  transition: width 0.12s linear;
+}
+.np-time {
+  font-family: var(--font-mono); font-size: 0.52rem;
+  color: var(--muted); letter-spacing: 0.08em;
+  margin-top: 5px; text-align: right;
+}
+
+.np-viz { display: flex; align-items: flex-end; gap: 2px; height: 24px; }
+.np-bar {
+  width: 3px; background: var(--neon-cyan); border-radius: 1px;
+  height: 3px;
+  transition: height 0.07s linear, background 0.3s;
+}
+.np-viz.sim .np-bar {
+  transition: none;
+  animation: npwave var(--s) ease-in-out infinite alternate;
+}
+@keyframes npwave { from { height: 3px } to { height: var(--h) } }
+
+.np-ctl { display: flex; gap: 8px; }
+.np-ctl .play-btn { font-size: 0.7rem; letter-spacing: -1px; }
+.np-ctl button {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--text); width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; cursor: pointer; transition: all 0.18s;
+}
+.np-ctl button:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+.np-ctl .stop-btn { font-size: 0.7rem; }
+.np-buy {
+  background: var(--neon-cyan); color: #000; border: none;
+  padding: 10px 22px; font-family: var(--font-mono);
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.np-buy:hover { opacity: 0.85; }
+
+/* ══════════ TOAST ══════════ */
+#toast {
+  position: fixed; bottom: 72px; right: 32px;
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--neon-cyan);
+  padding: 12px 18px; z-index: 9990; max-width: 260px;
+  transform: translateX(120%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+}
+#toast.show { transform: translateX(0); }
+.toast-t { font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; margin-bottom: 2px; }
+.toast-s { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); letter-spacing: 0.04em; }
+
+/* ══════════ MOBILE ══════════ */
+@media (max-width: 900px) {
+  /* minmax(0,…) again: a bare 1fr would size this single column to the
+     machine's own width and let it hang off the right edge of a phone. */
+  .page { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .vm-wrap { width: 470px; max-width: 100%; margin: 0 auto; padding-right: 0; }  /* panel overhangs 70 here */
+  .vm-shell { width: 100%; }
+  .vm-side { right: -70px; }
+  .right-panel { max-width: 460px; margin: 0 auto; width: 100%; }
+}
+@media (max-width: 600px) {
+  .npbar { padding: 10px 14px; gap: 10px; flex-wrap: wrap; }
+  .np-prog-wrap { width: 100%; order: 3; }
+  .np-viz { display: none; }
+  nav { padding: 12px 16px; }
+  .nav-center { display: none; }
+  .page { padding: 32px 12px 100px; }
+  .vm-side { display: none; }
+  .vm-wrap { width: 400px; max-width: 100%; }  /* no panel to allow for — shrink to the cabinet or it sits left */
+  .beat-product { min-width: 0; }              /* let slots narrow instead of forcing the shelf wide */
+  .vm-wrap { position: relative; }
+  .beat-product { min-height: 48px; }
+  .bp-title { font-size: 0.52rem; }
+  .left-title { font-size: 2.8rem; }
+}
+
+/* ══════════ KOAKA STUDIOS LOGO + CHROME ══════════ */
+
+/* Chrome text effect */
+@property --chrome-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 135deg;
+}
+
+.chrome-text, .logo-chrome-text, .hero-logo-chrome {
+  background: linear-gradient(
+    135deg,
+    #8a8a8a 0%,
+    #ffffff 15%,
+    #c0c0c0 25%,
+    #e8e8e8 35%,
+    #a0a0a0 45%,
+    #ffffff 55%,
+    #d0d0d0 65%,
+    #888888 75%,
+    #f0f0f0 85%,
+    #b0b0b0 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(255,182,255,0.4)) drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+  animation: chrome-shift 4s ease-in-out infinite alternate;
+}
+
+@keyframes chrome-shift {
+  0% { filter: drop-shadow(0 0 8px rgba(255,182,255,0.4)) drop-shadow(0 2px 4px rgba(0,0,0,0.8)) brightness(1); }
+  50% { filter: drop-shadow(0 0 16px rgba(255,100,200,0.6)) drop-shadow(0 2px 4px rgba(0,0,0,0.9)) brightness(1.15); }
+  100% { filter: drop-shadow(0 0 8px rgba(255,182,255,0.4)) drop-shadow(0 2px 4px rgba(0,0,0,0.8)) brightness(1); }
+}
+
+/* NAV logo wrap */
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,182,255,0.4);
+  box-shadow: 0 0 12px rgba(255,100,200,0.3), 0 0 24px rgba(255,100,200,0.1);
+  filter: brightness(1.1) contrast(1.05);
+}
+
+.logo-chrome-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.15em;
+}
+.logo-chrome-text em {
+  font-style: normal;
+  color: transparent; /* overridden by chrome */
+}
+
+/* HERO logo section */
+.hero-logo-wrap {
+  position: relative;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* No duplicate image — bg-logo handles the full-page version */
+.hero-logo-img { display: none; }
+
+/* subtle pink glow lines as decorative element */
+.hero-logo-wrap::before {
+  content: '';
+  position: absolute;
+  left: -20px; top: 50%;
+  width: 3px; height: 60%;
+  transform: translateY(-50%);
+  background: linear-gradient(to bottom, transparent, rgba(255,80,160,0.6), transparent);
+  border-radius: 2px;
+}
+.hero-logo-wrap::after { display: none; }
+
+.hero-logo-chrome {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.12em;
+  margin-top: -4px;
+  line-height: 1;
+}
+.hero-logo-chrome span {
+  background: linear-gradient(
+    135deg,
+    #ff82c8 0%,
+    #ffffff 20%,
+    #ffb0e0 40%,
+    #ffffff 55%,
+    #ff70c0 70%,
+    #ffffff 85%,
+    #ff90d0 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-left: 8px;
+}
+
+.hero-tagline {
+  font-family: 'Dancing Script', cursive, var(--font-body);
+  font-size: 0.8rem;
+  color: rgba(255,150,210,0.6);
+  letter-spacing: 0.05em;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* VM brand logo */
+.vm-brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vm-brand-img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(255,150,210,0.4);
+  box-shadow: 0 0 10px rgba(255,100,200,0.3);
+  flex-shrink: 0;
+}
+
+/* Override vm-brand-name for chrome effect inside machine */
+.vm-brand-logo-wrap .vm-brand-name {
+  background: linear-gradient(
+    135deg,
+    #8a8a8a 0%,
+    #ffffff 20%,
+    #c0c0c0 35%,
+    #e0e0e0 50%,
+    #a0a0a0 65%,
+    #ffffff 80%,
+    #b8b8b8 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 6px rgba(255,150,210,0.3));
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+}
+
+/* Pink chrome accent on ticker */
+.ticker {
+  background: linear-gradient(90deg, 
+    #0e0008,
+    #1e0015 20%,
+    #0e0008 40%,
+    #180010 60%,
+    #0e0008 80%,
+    #1e0015 100%
+  ) !important;
+  border-top: 1px solid rgba(255,80,160,0.25);
+  border-bottom: 1px solid rgba(255,80,160,0.25);
+}
+.ticker-track span {
+  color: rgba(255,140,200,0.85) !important;
+}
+
+/* Chrome shimmer on stat values */
+.stat-mini-val {
+  background: linear-gradient(135deg, #aaa 0%, #fff 30%, #ccc 50%, #eee 70%, #aaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 4px rgba(255,100,200,0.2));
+}
+/* stat mini color overrides removed — using stats-inline */
+
+/* Pink neon glow on hover states site-wide */
+.beat-product:hover {
+  box-shadow: 0 0 20px rgba(255,100,200,0.15) !important;
+}
+
+/* Koaka pink accent on left eyebrow */
+.left-eyebrow { color: rgba(255,140,210,0.9) !important; }
+.left-eyebrow::before { background: rgba(255,140,210,0.9) !important; }
+
+
+/* ══════════ HEAVEN IS RARE ══════════ */
+/* Faint horizontal overlay — layered over the bg logo at top */
+.hir-top-layer {
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;
+  height: 260px;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.06em;
+  overflow: hidden;
+  /* Fade out toward the bottom so words dissolve into page */
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.45) 40%, transparent 100%);
+}
+.hir-top-word {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 14vw, 13rem);
+  letter-spacing: 0.18em;
+  line-height: 1;
+  /* Faint chrome-pink, blends with the logo image beneath */
+  background: linear-gradient(
+    160deg,
+    rgba(255,80,160,0.12) 0%,
+    rgba(255,200,230,0.22) 40%,
+    rgba(255,80,160,0.09) 70%,
+    rgba(255,150,200,0.16) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+  user-select: none;
+}
+.hir-top-gap {
+  width: 0.3em;
+  flex-shrink: 0;
+}
+
+/* Quote block in left panel */
+.hir-quote {
+  font-family: 'Dancing Script', cursive, var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(255,130,200,0.55);
+  line-height: 1.75;
+  padding: 16px 0 16px 16px;
+  border-left: 2px solid rgba(255,80,160,0.25);
+  margin-bottom: 28px;
+  max-width: 300px;
+}
+.hir-quote em {
+  color: rgba(255,160,220,0.8);
+  font-style: italic;
+}
+
+/* Subtle "Heaven Is Rare" watermark behind the vending machine */
+.vm-hir-watermark {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  color: rgba(255,80,160,0.2);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Right panel empty state gets the philosophy */
+.dc-empty-icon { font-size: 1.8rem !important; opacity: 0.2 !important; }
+.dc-empty-text {
+  font-family: var(--font-mono) !important;
+  font-size: 0.6rem !important;
+  color: var(--muted) !important;
+  letter-spacing: 0.1em !important;
+  text-align: center !important;
+  line-height: 2 !important;
+}
+
+/* ══════════ MAILING LIST ══════════ */
+.ml-strip {
+  display: none;                    /* stays hidden until a real endpoint is wired */
+  width: 100%;
+  padding: 34px 40px 30px;
+  border-top: 1px solid rgba(255,80,160,0.1);
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.ml-strip.live { display: block; }
+.ml-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.3em;
+  color: rgba(255,100,160,0.55); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ml-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem; letter-spacing: 0.1em; line-height: 1;
+  background: linear-gradient(160deg,#888 0%,#fff 35%,#bbb 55%,#fff 75%,#999 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.ml-sub {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.95rem; color: rgba(255,120,190,0.4);
+  margin-top: 2px; margin-bottom: 16px;
+}
+.ml-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.ml-input {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,80,160,0.22);
+  color: var(--text);
+  font-family: var(--font-mono); font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 11px 16px; width: 290px; max-width: 100%;
+  outline: none; transition: border-color 0.2s;
+}
+.ml-input:focus { border-color: rgba(255,45,138,0.7); }
+.ml-input::placeholder { color: rgba(255,255,255,0.22); }
+.ml-btn {
+  background: linear-gradient(135deg,#ff2d8a,#ff6bb5);
+  color: #11060c; border: none;
+  font-family: var(--font-display); font-size: 0.95rem;
+  letter-spacing: 0.18em; padding: 11px 26px; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(255,45,138,0.3);
+}
+.ml-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,45,138,0.45); }
+.ml-btn:active { transform: translateY(1px); }
+.ml-note {
+  font-family: var(--font-mono); font-size: 0.52rem;
+  color: var(--muted); letter-spacing: 0.1em;
+  margin-top: 12px; line-height: 1.9;
+}
+.ml-said {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: rgba(255,100,160,0.8); letter-spacing: 0.1em;
+  margin-top: 12px; display: none;
+}
+@media (max-width: 600px) {
+  .ml-strip { padding: 26px 16px 24px; }
+  .ml-input { width: 100%; }
+  .ml-btn { width: 100%; }
+}
+
+/* Footer manifesto line */
+.hir-footer-line {
+  width: 100%;
+  padding: 20px 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255,80,160,0.1);
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: rgba(255,120,190,0.35);
+  letter-spacing: 0.05em;
+  position: relative; z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .hir-manifesto { padding: 20px 16px; flex-wrap: wrap; gap: 12px; }
+  .hir-manifesto-word { font-size: 1.6rem; }
+  .hir-manifesto-divider { display: none; }
+  .hir-footer-line { padding: 16px; font-size: 0.85rem; }
+}
+
+
+/* ══════════ THANK YOU CARD ══════════ */
+.ty-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(4,1,3,0.92);
+  backdrop-filter: blur(18px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.ty-overlay.open { opacity: 1; pointer-events: all; }
+
+.ty-card {
+  width: 100%; max-width: 380px;
+  background: linear-gradient(160deg, #0e0009, #16000f, #0a0006);
+  border: 1px solid rgba(255,90,170,0.2);
+  position: relative;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:
+    0 0 0 1px rgba(255,90,170,0.08),
+    0 30px 80px rgba(0,0,0,0.9),
+    0 0 60px rgba(255,60,150,0.08);
+}
+.ty-overlay.open .ty-card { transform: translateY(0) scale(1); }
+
+.ty-top-rule, .ty-bottom-rule {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255,90,170,0.6) 20%,
+    rgba(255,200,230,0.9) 50%,
+    rgba(255,90,170,0.6) 80%,
+    transparent 100%
+  );
+}
+
+.ty-inner {
+  padding: 36px 36px 32px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+
+.ty-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.28em;
+  color: rgba(255,120,190,0.5); text-transform: uppercase;
+}
+
+.ty-heading {
+  font-family: var(--font-display);
+  font-size: 3.2rem; letter-spacing: 0.1em; line-height: 0.9;
+  background: linear-gradient(160deg,
+    rgba(255,255,255,0.5) 0%,
+    rgba(255,140,200,0.9) 30%,
+    rgba(255,255,255,0.95) 50%,
+    rgba(255,120,185,0.85) 70%,
+    rgba(255,255,255,0.4) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255,80,160,0.3));
+}
+.ty-heading em {
+  font-style: normal;
+  display: block;
+}
+
+.ty-divider-line {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,90,170,0.4), transparent);
+}
+
+.ty-body-text {
+  font-family: 'Dancing Script', cursive, var(--font-body);
+  font-size: 1.05rem;
+  color: rgba(255,160,210,0.7);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+.ty-beat-row {
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid rgba(255,90,170,0.12);
+  background: rgba(255,80,160,0.04);
+}
+.ty-beat-name {
+  font-family: var(--font-display);
+  font-size: 1rem; letter-spacing: 0.1em;
+  color: var(--text); text-align: left;
+}
+.ty-beat-meta {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; color: var(--muted);
+  letter-spacing: 0.06em; margin-top: 2px; text-align: left;
+}
+.ty-price {
+  font-family: var(--font-display);
+  font-size: 1.5rem; letter-spacing: 0.06em;
+  color: rgba(255,140,200,0.8);
+  flex-shrink: 0;
+}
+
+.ty-date {
+  font-family: var(--font-mono);
+  font-size: 0.56rem; letter-spacing: 0.15em;
+  color: rgba(255,90,170,0.3); text-transform: uppercase;
+}
+
+.ty-tagline {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.9rem;
+  color: rgba(255,120,190,0.45);
+  font-style: italic; letter-spacing: 0.04em;
+}
+
+.ty-close-btn {
+  background: transparent;
+  border: 1px solid rgba(255,90,170,0.25);
+  color: rgba(255,90,170,0.5);
+  padding: 8px 28px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.18em; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  margin-top: 4px;
+}
+.ty-close-btn:hover {
+  border-color: rgba(255,90,170,0.6);
+  color: rgba(255,140,200,0.9);
+}
+
+
+/* ══════════════════════════════════════
+   KOAKA STUDIOS — LOADING SCREEN
+   danger. mystery. Gen Z energy.
+══════════════════════════════════════ */
+#loader {
+  position: fixed; inset: 0;
+  z-index: 99999;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#loader.fade-out {
+  animation: loader-exit 0.6s cubic-bezier(0.7,0,1,1) forwards;
+}
+#loader.gone { display: none; }
+
+@keyframes loader-exit {
+  0%   { opacity: 1; filter: none; }
+  40%  { opacity: 1; filter: brightness(3) saturate(0); }
+  60%  { opacity: 0.6; clip-path: inset(0 0 100% 0); filter: brightness(2); }
+  100% { opacity: 0; clip-path: inset(0 0 100% 0); }
+}
+
+#loader-static {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04; mix-blend-mode: screen;
+  pointer-events: none; z-index: 10;
+  animation: static-flicker 0.08s steps(1) infinite;
+}
+@keyframes static-flicker {
+  0%  { opacity:0.04; transform:translate(0,0); }
+  20% { opacity:0.07; transform:translate(-1px,1px); }
+  40% { opacity:0.03; transform:translate(1px,0); }
+  60% { opacity:0.06; transform:translate(0,-1px); }
+  80% { opacity:0.04; transform:translate(1px,1px); }
+  100%{ opacity:0.05; transform:translate(-1px,0); }
+}
+
+#loader-scan {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.25) 2px, rgba(0,0,0,0.25) 4px);
+  pointer-events: none; z-index: 11;
+}
+
+#loader-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 25%, rgba(90,0,20,0.3) 55%, rgba(60,0,10,0.7) 75%, rgba(20,0,5,0.95) 100%);
+  pointer-events: none; z-index: 2; opacity: 0;
+  animation: vignette-creep 1.2s ease 0.4s forwards;
+}
+@keyframes vignette-creep { 0%{opacity:0} 100%{opacity:1} }
+
+#loader-logo-frame {
+  position: relative;
+  width: min(64vw, 64vh, 480px);
+  height: min(64vw, 64vh, 480px);
+  z-index: 5;
+}
+
+#loader-logo-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block; opacity: 0;
+  animation: logo-materialize 2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+}
+@keyframes logo-materialize {
+  0%   { opacity:0; filter:brightness(4) saturate(0) blur(0); clip-path:inset(50% 50% 50% 50%); }
+  8%   { opacity:1; filter:brightness(3) saturate(0) blur(0); clip-path:inset(47% 47% 47% 47%); }
+  20%  { opacity:1; filter:brightness(2) saturate(0.1) blur(0); clip-path:inset(35% 35% 35% 35%); }
+  40%  { opacity:1; filter:brightness(1.4) saturate(0.3); clip-path:inset(18% 18% 18% 18%); }
+  65%  { opacity:1; filter:brightness(1.1) saturate(0.7); clip-path:inset(4% 4% 4% 4%); }
+  80%  { opacity:1; filter:brightness(1.0) saturate(0.9); clip-path:inset(0% 0% 0% 0%); }
+  100% { opacity:1; filter:brightness(1.0) saturate(1.0); clip-path:inset(0% 0% 0% 0%); }
+}
+
+#loader-edge-melt {
+  position: absolute; inset: -3px; z-index: 7; pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 28%, transparent 46%, rgba(0,0,0,0.28) 58%, rgba(0,0,0,0.65) 72%, rgba(0,0,0,0.93) 84%, #000 100%);
+  opacity: 0;
+  animation: melt-in 2s ease 0.3s forwards;
+}
+@keyframes melt-in { 0%{opacity:0} 50%{opacity:0.5} 100%{opacity:1} }
+
+#loader-sweep {
+  position: absolute; top: -4px; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,20,60,0.9) 30%, rgba(255,80,140,1) 50%, rgba(255,20,60,0.9) 70%, transparent 100%);
+  box-shadow: 0 0 18px rgba(255,30,70,0.8), 0 0 40px rgba(200,0,40,0.4);
+  z-index: 9; opacity: 0;
+  animation: sweep-down 0.7s cubic-bezier(0.4,0,0.6,1) 0.2s forwards;
+}
+@keyframes sweep-down {
+  0%  { opacity:0; top:-4px; }
+  10% { opacity:1; top:0px; }
+  90% { opacity:0.7; top:calc(100% + 4px); }
+  100%{ opacity:0; top:calc(100% + 4px); }
+}
+
+#loader-corrupt {
+  position: absolute; inset: 0; z-index: 8; pointer-events: none; opacity: 0;
+  animation: corrupt-pulse 0.05s steps(1) 0.35s 6 alternate;
+}
+@keyframes corrupt-pulse {
+  0%  { opacity:0; background:transparent; }
+  50% { opacity:1; background:linear-gradient(180deg, transparent 15%, rgba(255,10,50,0.15) 15.5%, rgba(255,10,50,0.15) 16%, transparent 16%, transparent 38%, rgba(255,80,160,0.1) 38.5%, rgba(255,80,160,0.1) 39.5%, transparent 39.5%, transparent 72%, rgba(200,0,40,0.12) 72.3%, rgba(200,0,40,0.12) 73%, transparent 73%); }
+  100%{ opacity:0; background:transparent; }
+}
+
+#loader-wordmark {
+  position: absolute; bottom: -56px; left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap; text-align: center; opacity: 0;
+  animation: wm-in 0.5s cubic-bezier(0.16,1,0.3,1) 2s forwards;
+}
+@keyframes wm-in {
+  0%  { opacity:0; letter-spacing:0.8em; }
+  100%{ opacity:1; letter-spacing:0; }
+}
+#loader-wordmark-text {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
+  letter-spacing: 0.4em; color: rgba(255,255,255,0.9); display: block;
+  filter: drop-shadow(0 0 6px rgba(255,40,100,0.6));
+}
+#loader-tagline-text {
+  display: block; font-family: 'Dancing Script', cursive, serif;
+  font-size: 0.6rem; color: rgba(255,80,140,0.45);
+  letter-spacing: 0.06em; margin-top: 5px;
+}
+
+#loader-ghost-text {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem); letter-spacing: 0.22em;
+  color: rgba(255,255,255,0); white-space: nowrap;
+  pointer-events: none; z-index: 12;
+  animation: ghost-flicker 2.4s steps(1) 0.1s forwards;
+}
+@keyframes ghost-flicker {
+  0%  { color:rgba(255,255,255,0.0); text-shadow:none; }
+  4%  { color:rgba(255,255,255,0.6); text-shadow:0 0 30px rgba(255,20,60,0.8),0 0 60px rgba(255,20,60,0.4); }
+  6%  { color:rgba(255,255,255,0.0); text-shadow:none; }
+  12% { color:rgba(255,255,255,0.3); text-shadow:0 0 20px rgba(255,40,80,0.5); }
+  14% { color:rgba(255,255,255,0.0); text-shadow:none; }
+  28% { color:rgba(255,255,255,0.08); }
+  30% { color:rgba(255,255,255,0.0); }
+  100%{ color:rgba(255,255,255,0.0); }
+}
+
+.loader-mote {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  animation: mote-float var(--dur) ease-in var(--delay) forwards;
+}
+@keyframes mote-float {
+  0%  { opacity:0; transform:translate(0,0) scale(0); }
+  12% { opacity:1; transform:translate(var(--tx1),var(--ty1)) scale(1); }
+  70% { opacity:0.6; transform:translate(var(--tx2),var(--ty2)) scale(0.5); }
+  100%{ opacity:0; transform:translate(var(--tx3),var(--ty3)) scale(0); }
+}
+
+</style>
+<script>
+(function(){
+  var L="assets/logo.jpg";
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('img[data-logo]').forEach(function(i){i.src=L;});
+  });
+})();
+</script>
+</head>
+<body>
+
+<!-- KOAKA STUDIOS LOADING SCREEN -->
+<div id="loader">
+  <div id="loader-static"></div>
+  <div id="loader-scan"></div>
+  <div id="loader-vignette"></div>
+  <div id="loader-sweep"></div>
+  <div id="loader-ghost-text">HEAVEN IS RARE</div>
+  <div id="loader-logo-frame">
+    <div id="loader-corrupt"></div>
+    <img id="loader-logo-img" data-logo alt="Koaka Studios" />
+    <div id="loader-edge-melt"></div>
+    <div id="loader-wordmark">
+      <span id="loader-wordmark-text">KOAKA&nbsp;STUDIOS</span>
+      <span id="loader-tagline-text">May your dreams never be lost</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- FULL PAGE BACKGROUND LOGO -->
+<div id="bg-logo"><img data-logo alt="" /></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-wrap">
+    <img data-logo class="nav-logo-img" alt="Koaka Studios" />
+    <div class="logo-chrome-text">KOAKA<em>STUDIOS</em></div>
+  </div>
+  <div class="nav-center">HEAVEN IS RARE · SELECT YOUR FREQUENCY</div>
+  <div class="nav-right">
+    <button class="icon-btn" id="catBtn" type="button" onclick="openCatalog()"
+            title="Browse the full catalogue" aria-label="Browse the full catalogue">
+      <span class="ib-glyph">▤</span>
+    </button>
+  </div>
+</nav>
+
+<!-- FAINT HEAVEN IS RARE — layered over logo at top -->
+<div class="hir-top-layer" aria-hidden="true">
+  <span class="hir-top-word">HEAVEN</span>
+  <span class="hir-top-gap">&nbsp;</span>
+  <span class="hir-top-word">IS</span>
+  <span class="hir-top-gap">&nbsp;</span>
+  <span class="hir-top-word">RARE</span>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+
+<!-- MAIN LAYOUT -->
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div class="left-eyebrow">Heaven Is Rare · Vol. I</div>
+    
+    <!-- Hero logo display -->
+    <div class="hero-logo-wrap">
+      <img data-logo class="hero-logo-img" alt="Koaka Studios" />
+      <div class="hero-logo-chrome">KOAKA<span>STUDIOS</span></div>
+      <div class="hero-tagline">Heaven Is Rare · May your dreams never be lost</div>
+    </div>
+
+    <p class="left-desc">
+      Some things don't come easy. A beat that moves you. A moment that changes everything. Step up. Choose your slot. What you find here might be exactly what you've been looking for.
+    </p>
+    
+
+
+    <div class="genre-label">Filter by Genre</div>
+    <div class="genre-pills" id="genrePills"></div>
+    <div class="tier-pills" id="tierPills"></div>
+
+    <div class="stats-inline">
+      <div class="si-item">
+        <span class="si-val">$84.2K</span>
+        <span class="si-label">revenue</span>
+      </div>
+      <div class="si-dot"></div>
+      <div class="si-item">
+        <span class="si-val">1,847</span>
+        <span class="si-label">beats sold</span>
+      </div>
+      <div class="si-dot"></div>
+      <div class="si-item">
+        <span class="si-val">$45</span>
+        <span class="si-label">avg order</span>
+      </div>
+      <div class="si-dot"></div>
+      <div class="si-item">
+        <span class="si-val">214</span>
+        <span class="si-label">in catalog</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENDING MACHINE -->
+  <div class="vm-wrap" id="vmWrap">
+    <div class="vm-shell" id="vmShell">
+
+      <!-- Brand strip -->
+      <div class="vm-brand-strip">
+        <div class="vm-brand-logo-wrap">
+          <img data-logo class="vm-brand-img" alt="Koaka Studios" />
+          <div class="vm-brand-name">KOAKA STUDIOS</div>
+        </div>
+        <div class="vm-led">
+          <div class="vm-led-dot"></div>
+          <div class="vm-led-dot"></div>
+          <div class="vm-led-dot"></div>
+        </div>
+      </div>
+
+      <!-- Glass window with shelves -->
+      <div class="vm-glass">
+        <div class="vm-shelves" id="vmShelves">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- Side panel — doubles as the way into the full catalogue -->
+      <div class="vm-side" onclick="openCatalog()" title="Browse the full catalogue">
+        <div class="vm-screen">
+          <div class="vm-screen-text" id="screenText">READY<br>INSERT<br>COIN</div>
+        </div>
+        <div class="vm-card-reader">
+          <div class="vm-card-slot"></div>
+        </div>
+        <div class="vm-keypad" id="vmKeypad"></div>
+        <div class="vm-coin-slot"></div>
+        <div class="vm-side-hint">CATALOGUE</div>
+      </div>
+
+      <!-- Bottom push bar -->
+      <div class="vm-bottom">
+        <div class="vm-push" onclick="pushButton()">PUSH</div>
+      </div>
+    </div>
+
+    <div class="vm-hir-watermark">H E A V E N &nbsp; I S &nbsp; R A R E</div>
+
+    <!-- Feet -->
+    <div class="vm-feet">
+      <div class="vm-foot"></div>
+      <div class="vm-foot"></div>
+      <div class="vm-foot"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="detail-card" id="detailCard">
+      <div class="dc-empty" id="dcEmpty">
+        <div class="dc-empty-icon">🎵</div>
+        <div class="dc-empty-text">EVERY BEAT IS A MOMENT<br>OF FREEDOM WAITING<br>TO BE CLAIMED</div>
+        <div class="dc-empty-arrow">← CHOOSE A SLOT</div>
+      </div>
+      <div class="dc-content" id="dcContent">
+        <div class="dc-slot-code" id="dcSlotCode">—</div>
+        <div class="dc-cat" id="dcCat">—</div>
+        <div class="dc-tier" id="dcTier"></div>
+        <div class="dc-title" id="dcTitle">—</div>
+        <div class="dc-title-sub" id="dcSub">—</div>
+        <div class="dc-waveform" id="dcWave"></div>
+        <div class="dc-meta-row">
+          <div class="dc-meta-item"><div class="dc-meta-label">BPM</div><div class="dc-meta-val" id="dcBpm">—</div></div>
+          <div class="dc-meta-item"><div class="dc-meta-label">KEY</div><div class="dc-meta-val" id="dcKey">—</div></div>
+          <div class="dc-meta-item"><div class="dc-meta-label">TYPE</div><div class="dc-meta-val" id="dcType">—</div></div>
+        </div>
+        <div class="dc-licenses" id="dcLicenses"></div>
+        <a class="buy-btn" id="buyBtn" rel="noopener">
+          <span id="buyLabel">PURCHASE LICENSE</span>
+          <span id="buyPrice">—</span>
+        </a>
+        <div class="buy-fallback" id="buyFallback"></div>
+        <div class="pay-icons">
+          <span class="pay-icon">STRIPE</span>
+          <span class="pay-icon">PAYPAL</span>
+          <span class="pay-icon">APPLE PAY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="recent-card">
+      <div class="rc-title">LIVE SALES</div>
+      <div class="rc-list" id="rcList"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NOW PLAYING BAR -->
+<div class="npbar" id="npbar">
+  <div class="np-ctl">
+    <button class="play-btn" id="npPlay" onclick="togglePreview()">▶</button>
+    <button class="stop-btn" onclick="stopPreview()">■</button>
+  </div>
+  <div class="np-info">
+    <div class="np-beat-name" id="npName">—</div>
+    <div class="np-beat-sub" id="npSub">—</div>
+    <div class="np-status" id="npStatus"></div>
+  </div>
+  <div class="np-prog-wrap">
+    <div class="np-prog"><div class="np-fill" id="npFill"></div></div>
+    <div class="np-time" id="npTime">0:00 / 0:30</div>
+  </div>
+  <div class="np-viz" id="npViz"></div>
+  <button class="np-buy" id="npBuy">BUY</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><div class="toast-t" id="toastT"></div><div class="toast-s" id="toastS"></div></div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+const catColor = {
+  trap:'#ff2d78', drill:'#ff7b00', 'lo-fi':'#c060ff',
+  afrobeats:'#ffd60a', rnb:'#00f0d0', phonk:'#ff2d2d',
+  jersey:'#39ff14', 'boom-bap':'#ff9ef5'
+};
+
+const beats = [
+    // Row A
+  { id:'A1', title:'LOST', cat:'trap', bpm:145, key:'Em', price:49, excl:true, sold:false, prod:'GUMMY', audio:'audio/lost-preview.mp3' , tier:'S', checkout:'https://payhip.com/b/Ox7im' },
+  { id:'A2', title:'WOLLY WHITE', cat:'trap', bpm:145, key:'Em', price:45, excl:false, sold:false, prod:'GUMMY', audio:'audio/wolly-preview.mp3' , tier:'PRIME' },
+  { id:'A3', title:'BIRD', cat:'trap', bpm:140, key:'Em', price:45, excl:false, sold:false, prod:'GUMMY', audio:'audio/bird-preview.mp3' , tier:'PRIME' },
+  // Row B
+  { id:'B1', title:'BL&T', cat:'trap', bpm:140, key:'Am', price:89, excl:true, sold:false, prod:'GUMMY', audio:'audio/blt-preview.mp3' , tier:'S' },
+  { id:'B2', title:'PEACE ON TRENDS', cat:'trap', bpm:140, key:'Fm', price:39, excl:false, sold:false, prod:'GUMMY', audio:'audio/peace-preview.mp3' , tier:'CORE', checkout:'https://payhip.com/b/gGVYy' },
+  { id:'B3', title:'NEW EYES', cat:'trap', bpm:120, key:'Fm', price:39, excl:false, sold:false, prod:'GUMMY', audio:'audio/neweyes-preview.mp3' , tier:'CORE', checkout:'https://payhip.com/b/ObicB' },
+  { id:'B4', title:'GLORY', cat:'rnb', bpm:72, key:'Em', price:55, excl:true, sold:false, prod:'GUMMY', audio:'audio/glory-preview.mp3' , tier:'S', checkout:'https://payhip.com/b/ZhQ2s' },
+  // Row C
+  { id:'C1', title:'DIRTY DIANA', cat:'trap', bpm:93, key:'Cm', price:30, excl:false, sold:false, prod:'GUMMY', audio:'audio/diana-preview.mp3', tier:'PRIME' },
+  { id:'C2', title:'WORLD GONE SPIN', cat:'trap', bpm:95, key:'Em', price:30, excl:false, sold:false, prod:'GUMMY', audio:'audio/worldspin-preview.mp3', tier:'PRIME' },
+  { id:'C3', title:'12:18 AM', cat:'rnb', bpm:93, key:'Em', price:15, excl:false, sold:false, prod:'GUMMY', audio:'audio/1218am-preview.mp3', tier:'CORE' },
+  { id:'C4', title:'NAVY', cat:'trap', bpm:null, key:null, price:15, excl:false, sold:false, prod:'GUMMY', tier:'CORE', checkout:'https://payhip.com/b/Tf3kE' },
+  { id:'C5', title:'SMOKY MIRRORS', cat:'rnb', bpm:92, key:'Em', price:39, excl:false, sold:false, prod:'SOLE' , tier:'CORE' },
+  // Row D
+  { id:'D1', title:'NORTH STAR', cat:'boom-bap', bpm:94, key:'Cm', price:29, excl:false, sold:false, prod:'ATLAS' , tier:'CORE' },
+  { id:'D2', title:'CYBER PSALM', cat:'trap', bpm:148, key:'F#m', price:35, excl:true, sold:false, prod:'VAULT' , tier:'PRIME' },
+  { id:'D3', title:'ASTRAL PLANE', cat:'phonk', bpm:130, key:'Bm', price:25, excl:false, sold:false, prod:'SPECTER' , tier:'ENTRY' },
+  // Row E — "drinks" row (wider items)
+  { id:'E1', title:'DARK MATTER', cat:'drill', bpm:144, key:'C#m', price:42, excl:false, sold:false, prod:'KAI-X' , tier:'PRIME' },
+  { id:'E2', title:'LOTUS TRAP', cat:'trap', bpm:138, key:'Ab', price:29, excl:false, sold:false, prod:'VAULT' , tier:'CORE' },
+  { id:'E3', title:'NEON ZAZA', cat:'jersey', bpm:140, key:'Gm', price:22, excl:false, sold:true, prod:'J-SPADE' , tier:'ENTRY' },
+  { id:'E4', title:'OCEAN DRIVE', cat:'rnb', bpm:85, key:'F', price:39, excl:true, sold:false, prod:'SOLE' , tier:'PRIME' },
+  { id:'E5', title:'CHROME ANGEL', cat:'lo-fi', bpm:78, key:'Db', price:19, excl:false, sold:false, prod:'NORI' , tier:'ENTRY' },
+  { id:'E6', title:'BLOOD MOON', cat:'phonk', bpm:133, key:'Dm', price:25, excl:false, sold:false, prod:'SPECTER' , tier:'ENTRY' },
+];
+
+// Shelf layout: rows of beat IDs
+const shelves = [
+  { row:'A', ids:['A1','A2','A3'] },
+  { row:'B', ids:['B1','B2','B3','B4'] },
+  { row:'C', ids:['C1','C2','C3','C4','C5'] },
+  { row:'D', ids:['D1','D2','D3'] },
+  { row:'E', ids:['E1','E2','E3','E4','E5','E6'] },
+];
+
+let selectedBeat = null;
+let selectedLicense = null;
+let activeFilter = 'all';
+let activeTier   = 'all';
+
+// A slot with no checkout link cannot take money, so it shows as an empty
+// coil rather than a beat nobody can buy. Set this to false to put every
+// beat back on the shelf as a preview-only display.
+const HIDE_UNLINKED = true;
+function isBuyable(beat) { return !!(beat && beat.checkout); }
+
+// ══════════════════════════════════════════
+// TIER LADDER
+// ══════════════════════════════════════════
+// Four bands, best first. Rename freely — `label` is the only thing a buyer
+// sees, and nothing else keys off it.
+// The tier IS the price band — that is what makes a tier mean anything.
+// A beat is worth more because it sits higher, not the other way round, so
+// to reprice a beat, move its `tier`. `excl` is an absolute price, not a
+// multiple: buying a beat outright removes it from sale forever, and that
+// costs the same whether the lease was cheap or not.
+const TIERS = {
+  S:     { label:'S TIER', color:'#ffd700', lease: 50, excl: 600,
+           blurb:'Flagship. The ones worth the exclusive.' },
+  PRIME: { label:'PRIME',  color:'#d8dae2', lease: 30, excl: 300,
+           blurb:'Front line. Radio-ready.' },
+  CORE:  { label:'CORE',   color:'#cd7f32', lease: 15, excl: 150,
+           blurb:'Working beats. Built to be used.' },
+  ENTRY: { label:'ENTRY',  color:'#6c7a89', lease:  5, excl:  75,
+           blurb:'First beat money. Same catalogue, lower door.' },
+};
+const TIER_ORDER = ['S','PRIME','CORE','ENTRY'];
+function tierOf(beat) { return TIERS[beat.tier] || TIERS.CORE; }
+
+// ══════════════════════════════════════════
+// BUILD MACHINE
+// ══════════════════════════════════════════
+function getBeat(id) { return beats.find(b=>b.id===id); }
+
+// One source of truth: the shelf price always matches the tier band.
+function applyTierPricing() {
+  beats.forEach(b => { b.price = (TIERS[b.tier] || TIERS.CORE).lease; });
+}
+applyTierPricing();
+
+function buildMachine() {
+  const container = document.getElementById('vmShelves');
+  container.innerHTML = '';
+
+  shelves.forEach(shelf => {
+    const shelfEl = document.createElement('div');
+    shelfEl.className = 'vm-shelf';
+
+    // label row
+    const labelRow = document.createElement('div');
+    labelRow.className = 'shelf-label-row';
+    const codesRow = document.createElement('div');
+    codesRow.className = 'shelf-codes';
+
+    // products
+    const productsRow = document.createElement('div');
+    productsRow.className = 'shelf-products';
+
+    shelf.ids.forEach(id => {
+      const beat = getBeat(id);
+      if(!beat) return;
+
+      const c = catColor[beat.cat] || '#00f0d0';
+      const tier = tierOf(beat);
+      const isDimmed = (activeFilter !== 'all' && beat.cat !== activeFilter)
+                    || (activeTier   !== 'all' && beat.tier !== activeTier);
+
+      // Label
+      const lbl = document.createElement('div');
+      lbl.className = 'shelf-slot-label';
+      lbl.textContent = beat.id;
+      labelRow.appendChild(lbl);
+
+      // Code
+      const code = document.createElement('div');
+      code.className = 'shelf-code';
+      code.textContent = beat.id;
+      codesRow.appendChild(code);
+
+      // Nothing to sell here yet — show the bare coil, same as a real machine
+      if (HIDE_UNLINKED && !isBuyable(beat)) {
+        const empty = document.createElement('div');
+        empty.className = 'beat-product empty-slot';
+        empty.innerHTML = '<div class="bp-coil"></div>';
+        productsRow.appendChild(empty);
+        return;
+      }
+
+      // Product
+      const prod = document.createElement('div');
+      prod.className = 'beat-product tier-' + (beat.tier||'CORE') + (beat.sold?' sold':'');
+      prod.dataset.id = beat.id;
+      prod.style.cssText = `background:linear-gradient(160deg,${c}28,${c}12,${c}08);border-color:${c}30;`;
+      if(isDimmed) prod.style.opacity = '0.2';
+      if(selectedBeat && selectedBeat.id === beat.id) prod.style.borderColor = c;
+
+      prod.style.setProperty('--tier', tier.color);
+
+      // Depth = stock, the way a real coil shows it. A lease is unlimited, so
+      // copies stack up behind the front one; an exclusive is the only one
+      // there and stands alone; a sold slot has an empty coil.
+      const deep = !beat.sold && !beat.excl;
+      const stack = deep
+        ? `<div class="bp-stack"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i></div>`
+        : '';
+      const stock = (beat.excl && !beat.sold) ? `<span class="bp-stock">1 OF 1</span>` : '<span></span>';
+
+      prod.innerHTML = `
+        ${stack}
+        <div class="bp-tier-stripe"></div>
+        <div class="bp-top"><span class="bp-tier-chip">${tier.label}</span></div>
+        <div class="bp-mid">
+          <div class="bp-title">${beat.title}</div>
+          <div class="bp-bpm">${beat.bpm ? beat.bpm + ' BPM' : '&nbsp;'}</div>
+        </div>
+        <div class="bp-bot">
+          ${stock}
+          <span class="bp-price-tag" style="color:${c}">$${beat.price}</span>
+        </div>
+        <div class="bp-coil"></div>
+      `;
+
+      if(!beat.sold) {
+        prod.addEventListener('click', () => { selectBeat(beat.id); previewBeat(beat.id); });
+      }
+
+      productsRow.appendChild(prod);
+    });
+
+    shelfEl.appendChild(labelRow);
+    shelfEl.appendChild(productsRow);
+
+    // Rail
+    const rail = document.createElement('div');
+    rail.className = 'shelf-rail';
+    shelfEl.appendChild(rail);
+    shelfEl.appendChild(codesRow);
+
+    container.appendChild(shelfEl);
+  });
+}
+
+// ══════════════════════════════════════════
+// KEYPAD
+// ══════════════════════════════════════════
+function buildKeypad() {
+  const pad = document.getElementById('vmKeypad');
+  const keys = ['1','2','3','4','5','6','7','8','9','*','0','#'];
+  pad.innerHTML = keys.map(k=>`<div class="vm-key" onclick="keyPress('${k}')">${k}</div>`).join('');
+}
+
+let keyBuffer = '';
+function keyPress(k) {
+  if(k==='*') { keyBuffer=''; updateScreen('CLEAR'); return; }
+  if(k==='#') {
+    const beat = beats.find(b=>b.id===keyBuffer.toUpperCase());
+    if(beat && !beat.sold) { selectBeat(beat.id); keyBuffer=''; }
+    else { updateScreen('INVALID'); keyBuffer=''; }
+    return;
+  }
+  keyBuffer += k;
+  updateScreen('SLOT:\n'+keyBuffer);
+}
+
+function updateScreen(txt) {
+  document.getElementById('screenText').innerHTML = txt.replace('\n','<br>') + '<span class="vm-screen-cursor"></span>';
+}
+
+// ══════════════════════════════════════════
+// SELECT BEAT
+// ══════════════════════════════════════════
+function selectBeat(id) {
+  const beat = getBeat(id);
+  if(!beat || beat.sold) return;
+  selectedBeat = beat;
+  selectedLicense = { type:'lease', price: beat.price };
+
+  const c = catColor[beat.cat] || '#00f0d0';
+
+  // Update screen
+  updateScreen(beat.id+'\n$'+beat.price);
+
+  // Glow shell
+  document.getElementById('vmShell').classList.add('active-glow');
+  document.getElementById('vmShell').style.setProperty('--gc', c);
+
+  // Rebuild machine to highlight selected
+  buildMachine();
+
+  // Detail card
+  document.getElementById('dcEmpty').style.display = 'none';
+  const content = document.getElementById('dcContent');
+  content.classList.add('visible');
+
+  document.getElementById('detailCard').style.setProperty('--accent', c);
+  document.getElementById('detailCard').style.borderTopColor = c;
+  document.getElementById('detailCard').querySelector('::before');
+  // Update accent line
+  document.getElementById('detailCard').style.cssText = `--accent:${c};`;
+  const dCard = document.getElementById('detailCard');
+  dCard.style.borderColor = 'var(--border)';
+  // force re-render top border via style injection
+  dCard.querySelector('.dc-content') && (dCard.style.cssText = '');
+
+  document.getElementById('dcSlotCode').textContent = `SLOT ${beat.id} · PROD. BY ${beat.prod}`;
+  document.getElementById('dcCat').textContent = beat.cat.toUpperCase() + (beat.excl?' · EXCLUSIVE':'');
+  document.getElementById('dcCat').style.color = c;
+  const _t = tierOf(beat);
+  const _te = document.getElementById('dcTier');
+  // only quote the exclusive ceiling on beats that actually sell exclusive,
+  // otherwise the range advertises a price nobody can buy
+  const _range = beat.excl ? `$${_t.lease}–$${_t.excl}` : `from $${_t.lease}`;
+  _te.innerHTML = `<span class="dct-badge">${_t.label}</span>`
+    + `<span class="dct-blurb">${_t.blurb} · ${_range}</span>`;
+  _te.style.setProperty('--tier', _t.color);
+  document.getElementById('dcTitle').textContent = beat.title;
+  document.getElementById('dcTitle').style.color = beat.excl ? c : 'var(--text)';
+  const _meta = [beat.bpm ? beat.bpm+' BPM' : null, beat.key || null,
+                 beat.excl?'EXCLUSIVE':'LEASE AVAILABLE'].filter(Boolean).join(' · ');
+  document.getElementById('dcSub').textContent = _meta;
+  document.getElementById('dcBpm').textContent = beat.bpm;
+  document.getElementById('dcKey').textContent = beat.key;
+  document.getElementById('dcType').textContent = beat.excl ? 'EXCL' : 'LEASE';
+
+  // Waveform
+  buildDcWave(c);
+
+  // Licenses
+  const band = tierOf(beat);
+  const lics = [
+    { type:'lease', name:'LEASE', desc:'Non-exclusive · 10K streams · 1 video', price: band.lease },
+    { type:'premium', name:'PREMIUM LEASE', desc:'Non-exclusive · 100K streams · Unlimited', price: band.lease*2 },
+    ...(beat.excl ? [{ type:'exclusive', name:'EXCLUSIVE', desc:'Full ownership · Beat removed from store', price: band.excl }] : []),
+  ];
+  document.getElementById('dcLicenses').innerHTML = lics.map(l=>`
+    <div class="dc-lic ${l.type==='lease'?'sel':''}" onclick="selLicense('${l.type}',${l.price},this)">
+      <div>
+        <div class="dc-lic-name">${l.name}</div>
+        <div class="dc-lic-desc">${l.desc}</div>
+      </div>
+      <div class="dc-lic-price" style="color:${c}">$${l.price}</div>
+    </div>
+  `).join('');
+
+  refreshBuyButton();
+
+  // NP bar
+  showNpBar(beat, c);
+}
+
+function selLicense(type, price, el) {
+  selectedLicense = { type, price };
+  document.querySelectorAll('.dc-lic').forEach(l=>l.classList.remove('sel'));
+  el.classList.add('sel');
+  refreshBuyButton();
+}
+
+function buildDcWave(color) {
+  const wave = document.getElementById('dcWave');
+  wave.innerHTML = '';
+  for(let i=0;i<40;i++){
+    const h1 = (4+Math.random()*34).toFixed(0);
+    const h2 = (4+Math.random()*34).toFixed(0);
+    const speed = (0.25+Math.random()*0.55).toFixed(2);
+    const bar = document.createElement('div');
+    bar.className = 'dc-wave-bar';
+    bar.style.cssText = `--a:${h1}px;--b:${h2}px;--s:${speed}s;background:${color};height:${h1}px`;
+    wave.appendChild(bar);
+  }
+}
+
+// ══════════════════════════════════════════
+// PREVIEW
+// ══════════════════════════════════════════
+const PREVIEW_SECONDS = 30;   // hard cap — buyers hear 30s, never the full beat
+const PREVIEW_FADE    = 2.5;  // tail fade so it never cuts dead
+
+// Audio is decoded and played through the Web Audio graph rather than an
+// <audio> element. Routing an element through createMediaElementSource is a
+// one-way door: if the graph doesn't carry its signal the beat goes silent
+// with no way back. A decoded buffer plays and analyses on one verified path.
+let pxMode     = null;   // 'buffer' | 'element' (fallback)
+let pxSource   = null;   // AudioBufferSourceNode
+let pxBuffer   = null;
+let pxGain     = null;
+let pxAnalyser = null;
+let pxBins     = null;
+let pxStartedAt= 0;      // ctx.currentTime when the current segment began
+let pxOffset   = 0;      // seconds into the beat at that moment
+let pxPlaying  = false;
+let pxRAF      = null;
+let pxEl       = null;   // fallback element
+let pxId       = null;
+let pxColor    = '#00f0d0';
+let pxSilent   = null;   // first time the analyser read pure silence
+const pxCache  = {};     // url -> AudioBuffer
+
+function fmtTime(s) {
+  if (!isFinite(s) || s < 0) s = 0;
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+
+function pxDuration() {
+  const d = pxMode === 'buffer' ? (pxBuffer ? pxBuffer.duration : PREVIEW_SECONDS)
+          : (pxEl && isFinite(pxEl.duration) ? pxEl.duration : PREVIEW_SECONDS);
+  return Math.min(PREVIEW_SECONDS, d);
+}
+
+function pxPosition() {
+  if (pxMode === 'element') return pxEl ? pxEl.currentTime : 0;
+  if (!pxPlaying) return pxOffset;
+  try { return pxOffset + (getAudioCtx().currentTime - pxStartedAt); } catch(e) { return pxOffset; }
+}
+
+// ── entry point ──────────────────────────────────────────
+function previewBeat(id) {
+  const beat = getBeat(id);
+  if (!beat || beat.sold) return;
+  pxColor = catColor[beat.cat] || '#00f0d0';
+  showNpBar(beat, pxColor);
+
+  if (pxId === id && pxPlaying) { togglePreview(); return; }   // same beat -> toggle
+
+  if (!beat.audio) {
+    pxId = id; stopAudio();
+    npStatus('NO PREVIEW UPLOADED FOR THIS BEAT YET');
+    flatViz(); setPlayIcon(false);
+    document.getElementById('npFill').style.width = '0%';
+    document.getElementById('npTime').textContent = '0:00 / 0:30';
+    return;
+  }
+
+  stopAudio();
+  pxId = id; pxOffset = 0;
+  npStatus('LOADING…');
+  document.getElementById('npFill').style.width = '0%';
+  loadAndPlay(beat.audio);
+}
+
+async function loadAndPlay(url) {
+  const ctx = getAudioCtx();
+  try {
+    if (ctx.state === 'suspended') await ctx.resume();
+
+    if (!pxCache[url]) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('http ' + res.status);
+      pxCache[url] = await ctx.decodeAudioData(await res.arrayBuffer());
+    }
+    if (pxId === null) return;            // stopped while loading
+    pxBuffer = pxCache[url];
+    pxMode = 'buffer';
+    startBufferAt(0);
+  } catch (e) {
+    elementFallback(url);                  // never leave the buyer with silence
+  }
+}
+
+function startBufferAt(offset) {
+  const ctx = getAudioCtx();
+  const cap = Math.min(PREVIEW_SECONDS, pxBuffer.duration);
+  if (offset >= cap - 0.05) offset = 0;
+
+  if (!pxGain) {
+    pxGain = ctx.createGain();
+    pxAnalyser = ctx.createAnalyser();
+    pxAnalyser.fftSize = 64;
+    pxAnalyser.smoothingTimeConstant = 0.72;
+    pxBins = new Uint8Array(pxAnalyser.frequencyBinCount);
+    pxGain.connect(pxAnalyser);
+    pxAnalyser.connect(ctx.destination);
+  }
+  pxGain.gain.cancelScheduledValues(ctx.currentTime);
+  pxGain.gain.setValueAtTime(1, ctx.currentTime);
+
+  pxSource = ctx.createBufferSource();
+  pxSource.buffer = pxBuffer;
+  pxSource.connect(pxGain);
+
+  const remain = cap - offset;
+  // fade the tail precisely, then let the source stop itself at the cap
+  pxGain.gain.setValueAtTime(1, ctx.currentTime + Math.max(0, remain - PREVIEW_FADE));
+  pxGain.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + remain);
+  pxSource.start(0, offset, remain);
+  pxSource.onended = () => { if (pxPlaying) endPreview('ENDED'); };
+
+  pxOffset = offset;
+  pxStartedAt = ctx.currentTime;
+  pxPlaying = true;
+  duckAmbient(true);
+  setPlayIcon(true);
+  npStatus(null);
+  startViz();
+  startTick();
+}
+
+function stopBuffer() {
+  if (pxSource) {
+    try { pxSource.onended = null; pxSource.stop(); } catch(e) {}
+    try { pxSource.disconnect(); } catch(e) {}
+    pxSource = null;
+  }
+}
+
+// Fallback: a plain element playing straight to the output, never routed
+// through the graph, so it is audible even if Web Audio is unavailable.
+function elementFallback(url) {
+  pxMode = 'element';
+  if (!pxEl) {
+    pxEl = new Audio();
+    pxEl.preload = 'auto';
+    pxEl.addEventListener('ended', () => endPreview('ENDED'));
+    pxEl.addEventListener('error', () => {
+      pxPlaying = false; setPlayIcon(false);
+      npStatus('PREVIEW UNAVAILABLE — FILE DID NOT LOAD');
+    });
+  }
+  pxEl.src = url; pxEl.currentTime = 0; pxEl.volume = 1;
+  pxEl.play().then(() => {
+    pxPlaying = true; duckAmbient(true); setPlayIcon(true);
+    npStatus(null); simViz(); startTick();
+  }).catch(() => { pxPlaying = false; setPlayIcon(false); npStatus('TAP ▶ TO PLAY PREVIEW'); });
+}
+
+function togglePreview() {
+  if (!pxId) return;
+  if (pxPlaying) {
+    const at = pxPosition();
+    if (pxMode === 'element') { if (pxEl) pxEl.pause(); }
+    else { stopBuffer(); pxOffset = at; }
+    pxPlaying = false;
+    stopViz(); flatViz(); setPlayIcon(false); duckAmbient(false); stopTick();
+  } else {
+    if (pxMode === 'buffer' && pxBuffer) startBufferAt(pxOffset);
+    else if (pxMode === 'element' && pxEl) {
+      if (pxEl.currentTime >= pxDuration() - 0.05) pxEl.currentTime = 0;
+      pxEl.volume = 1;
+      pxEl.play().then(() => {
+        pxPlaying = true; duckAmbient(true); setPlayIcon(true);
+        npStatus(null); simViz(); startTick();
+      }).catch(()=>{});
+    }
+  }
+}
+
+// ── progress loop ────────────────────────────────────────
+let pxTick = null;
+function startTick() {
+  if (pxTick) return;
+  const step = () => {
+    if (!pxPlaying) { pxTick = null; return; }
+    const cap = pxDuration(), t = Math.min(cap, pxPosition());
+    document.getElementById('npFill').style.width = ((t/cap)*100).toFixed(2) + '%';
+    document.getElementById('npTime').textContent = fmtTime(t) + ' / ' + fmtTime(cap);
+    if (pxMode === 'element' && cap - t <= PREVIEW_FADE && pxEl) {
+      pxEl.volume = Math.max(0, (cap - t) / PREVIEW_FADE);
+    }
+    if (t >= cap - 0.03) { endPreview('ENDED'); pxTick = null; return; }
+    pxTick = requestAnimationFrame(step);
+  };
+  pxTick = requestAnimationFrame(step);
+}
+function stopTick() { if (pxTick) { cancelAnimationFrame(pxTick); pxTick = null; } }
+
+function endPreview(reason) {
+  if (pxMode === 'element' && pxEl) pxEl.pause(); else stopBuffer();
+  pxPlaying = false; pxOffset = 0;
+  stopViz(); flatViz(); setPlayIcon(false); duckAmbient(false); stopTick();
+  const cap = pxDuration();
+  document.getElementById('npFill').style.width = '100%';
+  document.getElementById('npTime').textContent = fmtTime(cap) + ' / ' + fmtTime(cap);
+  if (reason === 'ENDED') npStatus('PREVIEW ENDED · PURCHASE TO HEAR THE FULL BEAT');
+}
+
+function stopAudio() {
+  if (pxEl) { pxEl.pause(); try { pxEl.currentTime = 0; } catch(e){} }
+  stopBuffer();
+  pxPlaying = false; pxOffset = 0;
+  stopViz(); stopTick(); duckAmbient(false); setPlayIcon(false);
+}
+
+function stopPreview() {
+  stopAudio(); flatViz(); pxId = null;
+  document.getElementById('npbar').classList.remove('up');
+  document.getElementById('npFill').style.width = '0%';
+  document.getElementById('npTime').textContent = '0:00 / 0:30';
+  npStatus(null);
+}
+
+function npStatus(msg) {
+  const el = document.getElementById('npStatus');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.style.display = msg ? 'block' : 'none';
+}
+
+function setPlayIcon(playing) {
+  const b = document.getElementById('npPlay');
+  if (b) b.textContent = playing ? '❚❚' : '▶';
+  // Playback starts asynchronously (fetch + decode), so the catalogue cannot
+  // repaint on a timer — it repaints whenever playback state actually moves.
+  const co = document.getElementById('catOverlay');
+  if (co && co.classList.contains('open')) renderCatalog();
+}
+
+function showNpBar(beat, c) {
+  document.getElementById('npName').textContent = beat.title;
+  document.getElementById('npSub').textContent =
+    [beat.cat.toUpperCase(), beat.bpm ? beat.bpm+' BPM' : null, beat.key || null,
+     'PROD. BY '+beat.prod].filter(Boolean).join(' · ');
+  const buy = document.getElementById('npBuy');
+  buy.textContent = `BUY $${beat.price}`;
+  buy.onclick = () => selectBeat(beat.id);
+  buy.style.background = c;
+  document.getElementById('npFill').style.background = c;
+  buildNpViz(c);
+  document.getElementById('npbar').classList.add('up');
+}
+
+// ── waveform ─────────────────────────────────────────────
+function buildNpViz(color) {
+  const viz = document.getElementById('npViz');
+  viz.innerHTML = '';
+  for (let i=0;i<22;i++) {
+    const bar = document.createElement('div');
+    bar.className = 'np-bar';
+    bar.style.cssText =
+      `background:${color};height:3px;--h:${(8+Math.random()*15).toFixed(0)}px;--s:${(0.22+Math.random()*0.4).toFixed(2)}s`;
+    viz.appendChild(bar);
+  }
+}
+
+function flatViz() {
+  const viz = document.getElementById('npViz');
+  viz.classList.remove('live','sim');
+  [...viz.children].forEach(b => b.style.height = '3px');
+}
+
+function simViz() {                     // CSS-driven stand-in
+  const viz = document.getElementById('npViz');
+  viz.classList.remove('live'); viz.classList.add('sim');
+}
+
+function startViz() {
+  const viz = document.getElementById('npViz');
+  if (!pxAnalyser) { simViz(); return; }
+  viz.classList.remove('sim'); viz.classList.add('live');
+  pxSilent = null;
+  if (pxRAF) return;
+  const loop = () => {
+    if (!pxPlaying || !pxAnalyser) { pxRAF = null; return; }
+    pxAnalyser.getByteFrequencyData(pxBins);
+    let mx = 0;
+    for (let i=0;i<pxBins.length;i++) if (pxBins[i] > mx) mx = pxBins[i];
+    // if the analyser never sees signal, don't sit there looking dead
+    if (mx === 0) {
+      if (pxSilent === null) pxSilent = performance.now();
+      else if (performance.now() - pxSilent > 1200) { simViz(); pxRAF = null; return; }
+    } else pxSilent = null;
+    const bars = viz.children;
+    for (let i=0;i<bars.length;i++) bars[i].style.height = (3 + (pxBins[i+1]||0)/255*21).toFixed(1) + 'px';
+    pxRAF = requestAnimationFrame(loop);
+  };
+  pxRAF = requestAnimationFrame(loop);
+}
+
+function stopViz() { if (pxRAF) { cancelAnimationFrame(pxRAF); pxRAF = null; } }
+
+// ══════════════════════════════════════════
+// PURCHASE
+// ══════════════════════════════════════════
+// The buy control is an <a>. A tapped link is a navigation the browser always
+// honours; window.open is a popup, which phones, in-app webviews and sandboxed
+// frames all block — that is why nothing happened when it was a button.
+function refreshBuyButton() {
+  const bb = document.getElementById('buyBtn');
+  const fb = document.getElementById('buyFallback');
+  const lbl = document.getElementById('buyLabel');
+  const beat = selectedBeat, lic = selectedLicense;
+  if (!bb || !beat || !lic) return;
+
+  document.getElementById('buyPrice').textContent = '$' + lic.price;
+
+  // Each Payhip product is sold at ONE price: the lease. Linking the dearer
+  // licences to it would send a buyer who picked $100 to a $50 checkout, so
+  // those stay un-linked until they have products of their own.
+  const leaseOnly = beat.checkout && lic.type === 'lease';
+
+  bb.classList.remove('disabled');
+  bb.onclick = null;
+  fb.style.display = 'none';
+  fb.innerHTML = '';
+
+  if (leaseOnly) {
+    bb.href = beat.checkout;
+    bb.target = '_blank';
+    bb.rel = 'noopener';
+    lbl.textContent = 'PURCHASE LICENSE';
+    fb.style.display = 'block';
+    fb.innerHTML = 'Nothing happened? <a href="' + beat.checkout +
+                   '" target="_blank" rel="noopener">open the checkout page</a>';
+  } else if (beat.checkout) {
+    bb.removeAttribute('href'); bb.removeAttribute('target');
+    bb.classList.add('disabled');
+    lbl.textContent = 'ENQUIRE — NOT ONLINE YET';
+    bb.onclick = () => showToast('NOT SET UP YET',
+      lic.type.toUpperCase().replace('_',' ') + ' licence has no checkout — only the lease is live.');
+  } else {
+    bb.removeAttribute('href'); bb.removeAttribute('target');
+    lbl.textContent = 'PURCHASE LICENSE';
+    bb.onclick = purchaseBeat;
+  }
+}
+
+function purchaseBeat() {
+  if(!selectedBeat||!selectedLicense) return;
+
+  // Linked beats never reach here — the anchor carries them straight to the
+  // checkout. This is the no-link demo path only.
+  showToast(`DEMO ONLY — ${selectedBeat.title}`, 'No payment taken. Add a checkout link to go live.');
+    showThankYouCard(selectedBeat, selectedLicense.price);
+  updateScreen('ENJOY\nYOUR\nBEAT!');
+  addRecentSale(selectedBeat, selectedLicense.price);
+}
+
+// ══════════════════════════════════════════
+// CATALOGUE
+// ══════════════════════════════════════════
+// Set this to the slot id of the week's best seller. Payhip holds the sales
+// figures and this page cannot read them, so it is a one-line manual change
+// rather than something that updates itself.
+const TOP_OF_WEEK = 'A1';
+
+// Only real Koaka beats belong in a browse list — the demo slots further down
+// the machine are invented names and must never be shown to a buyer.
+function catalogBeats() { return beats.filter(b => b.prod === 'GUMMY'); }
+
+let catGenre = 'all';
+
+function openCatalog() {
+  buildCatPills();
+  renderCatalog();
+  renderCatTop();
+  document.getElementById('catOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  try { soundClick(); } catch(e) {}
+}
+
+function closeCatalog() {
+  document.getElementById('catOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderCatTop() {
+  const b = catalogBeats().find(x => x.id === TOP_OF_WEEK);
+  const el = document.getElementById('catTop');
+  if (!b) { el.innerHTML = ''; return; }
+  const c = catColor[b.cat] || '#00f0d0';
+  const buy = isBuyable(b)
+    ? `<a class="cat-buy" href="${b.checkout}" target="_blank" rel="noopener"
+         onclick="event.stopPropagation()">BUY $${b.price}</a>`
+    : `<span class="cat-soon">NOT YET LISTED</span>`;
+  el.innerHTML = `
+    <div class="cat-top">
+      <div class="cat-top-label">★ Top of the week</div>
+      <div class="cat-top-row">
+        <div>
+          <div class="cat-top-name">${b.title}</div>
+          <div class="cat-top-meta">${[b.cat.toUpperCase(), b.bpm ? b.bpm+' BPM' : null,
+             b.key || null, tierOf(b).label].filter(Boolean).join(' · ')}</div>
+        </div>
+        <div class="cat-right">
+          <span class="cat-price" style="color:${c}">$${b.price}</span>
+          ${buy}
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildCatPills() {
+  const genres = [...new Set(catalogBeats().map(b => b.cat))].sort();
+  const el = document.getElementById('catPills');
+  el.innerHTML =
+    `<button class="cat-pill ${catGenre==='all'?'on':''}" data-g="all"
+       onclick="setCatGenre('all')">ALL</button>` +
+    genres.map(g => {
+      const c = catColor[g] || '#00f0d0';
+      return `<button class="cat-pill ${catGenre===g?'on':''}" data-g="${g}"
+                style="--c:${c}" onclick="setCatGenre('${g}')">${g.toUpperCase()}</button>`;
+    }).join('');
+}
+
+function setCatGenre(g) { catGenre = g; buildCatPills(); renderCatalog(); }
+
+function renderCatalog() {
+  const q = (document.getElementById('catSearch').value || '').trim().toLowerCase();
+  const rows = catalogBeats().filter(b =>
+    (catGenre === 'all' || b.cat === catGenre) &&
+    (!q || b.title.toLowerCase().includes(q))
+  );
+
+  document.getElementById('catCount').textContent =
+    rows.length + (rows.length === 1 ? ' BEAT' : ' BEATS');
+
+  const list = document.getElementById('catList');
+  if (!rows.length) {
+    list.innerHTML = `<div class="cat-empty">NOTHING MATCHES THAT<br>TRY ANOTHER NAME OR GENRE</div>`;
+    return;
+  }
+
+  list.innerHTML = rows.map(b => {
+    const c = catColor[b.cat] || '#00f0d0';
+    const t = tierOf(b);
+    const playing = (pxId === b.id && pxPlaying);
+    const meta = [b.bpm ? b.bpm+' BPM' : null, b.key || null, 'PROD. '+b.prod]
+                   .filter(Boolean).join(' · ');
+    const play = b.audio
+      ? `<button class="cat-play" onclick="event.stopPropagation(); catPlay('${b.id}')"
+           aria-label="Preview ${b.title}">${playing ? '❚❚' : '▶'}</button>`
+      : `<span class="cat-play none" title="No preview yet">–</span>`;
+    const buy = isBuyable(b)
+      ? `<a class="cat-buy" href="${b.checkout}" target="_blank" rel="noopener"
+           onclick="event.stopPropagation()">BUY</a>`
+      : `<span class="cat-soon">NOT YET LISTED</span>`;
+    return `
+      <div class="cat-row ${playing?'playing':''}" style="--c:${c};--tier:${t.color}"
+           onclick="catOpenInMachine('${b.id}')">
+        ${play}
+        <div class="cat-main">
+          <div class="cat-name">${b.title}</div>
+          <div class="cat-meta">${b.cat.toUpperCase()} · ${meta}</div>
+        </div>
+        <span class="cat-tierchip">${t.label}</span>
+        <div class="cat-right">
+          <span class="cat-price">$${b.price}</span>
+          ${buy}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// preview straight from the list, without leaving it
+function catPlay(id) {
+  previewBeat(id);   // setPlayIcon repaints the list once it really starts
+}
+
+// tapping the row takes you back to that beat in the machine
+function catOpenInMachine(id) {
+  closeCatalog();
+  selectBeat(id);
+  previewBeat(id);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('catOverlay').classList.contains('open'))
+    closeCatalog();
+});
+
+function pushButton() {
+  if(selectedBeat) {
+    // click the anchor so PUSH navigates exactly like the buy link does
+    const bb = document.getElementById('buyBtn');
+    if (bb && bb.getAttribute('href')) { bb.click(); return; }
+    purchaseBeat();
+  } else {
+    showToast('SELECT A SLOT FIRST', 'Click any beat in the machine');
+    updateScreen('SELECT\nA SLOT');
+  }
+}
+
+// ══════════════════════════════════════════
+// RECENT SALES
+// ══════════════════════════════════════════
+const recentSales = [
+  { name:'CYBER PSALM', cat:'trap', amt:'$210', time:'2m ago' },
+  { name:'GHOST PROTOCOL', cat:'drill', amt:'$90', time:'8m ago' },
+  { name:'MIDNIGHT RUN', cat:'trap', amt:'$29', time:'15m ago' },
+  { name:'LAGOS NIGHTS', cat:'afrobeats', amt:'$35', time:'31m ago' },
+];
+
+function addRecentSale(beat, price) {
+  recentSales.unshift({ name:beat.title, cat:beat.cat, amt:'$'+price, time:'just now' });
+  if(recentSales.length>5) recentSales.pop();
+  buildRecentSales();
+}
+
+function buildRecentSales() {
+  document.getElementById('rcList').innerHTML = recentSales.map(s=>`
+    <div class="rc-item">
+      <div class="rc-dot" style="background:${catColor[s.cat]||'#fff'};box-shadow:0 0 6px ${catColor[s.cat]||'#fff'}"></div>
+      <div class="rc-name">${s.name}</div>
+      <div class="rc-amt">${s.amt}</div>
+      <div class="rc-time">${s.time}</div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+// GENRE FILTER
+// ══════════════════════════════════════════
+function buildGenrePills() {
+  const genres = ['all','trap','drill','lo-fi','afrobeats','rnb','phonk','jersey','boom-bap'];
+  document.getElementById('genrePills').innerHTML = genres.map(g=>`
+    <button class="gpill ${g==='all'?'active':''}" data-g="${g}" onclick="filterGenre('${g}',this)">${g==='all'?'ALL':g.toUpperCase()}</button>
+  `).join('');
+}
+
+function filterGenre(genre, btn) {
+  activeFilter = genre;
+  document.querySelectorAll('.gpill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  buildMachine();
+}
+
+function buildTierPills() {
+  const el = document.getElementById('tierPills');
+  if (!el) return;
+  const all = `<button class="tpill active" data-t="all" onclick="filterTier('all',this)">ALL TIERS</button>`;
+  el.innerHTML = all + TIER_ORDER.map(k => {
+    const t = TIERS[k];
+    return `<button class="tpill" data-t="${k}" style="--tier:${t.color}"
+              title="${t.blurb}" onclick="filterTier('${k}',this)">
+              <span class="tp-dot"></span>${t.label}<span class="tp-from">$${t.lease}</span>
+            </button>`;
+  }).join('');
+}
+
+function filterTier(tier, btn) {
+  activeTier = tier;
+  document.querySelectorAll('.tpill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  buildMachine();
+}
+
+// ══════════════════════════════════════════
+// TICKER
+// ══════════════════════════════════════════
+function buildTicker() {
+  const items = ['HEAVEN IS RARE','FREEDOM IS THE FREQUENCY','TRAP','DRILL','FIND YOUR PEACE','LO-FI','PROSPERITY IN THE MAKING','AFROBEATS','EVEN DOWN BAD — YOU RISE','R&B','KOAKA STUDIOS','JERSEY CLUB','THE RAREST THING IS JOY','BOOM BAP','EXCLUSIVE BEATS','PHONK','YOUR SITUATION IS NOT YOUR DESTINATION'];
+  const all = [...items,...items];
+  document.getElementById('tickerTrack').innerHTML = all.map(t=>`<span>${t}</span>`).join('');
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTmr;
+function showToast(t, s) {
+  clearTimeout(toastTmr);
+  document.getElementById('toastT').textContent = t;
+  document.getElementById('toastS').textContent = s;
+  const el = document.getElementById('toast');
+  el.classList.add('show');
+  toastTmr = setTimeout(()=>el.classList.remove('show'), 3400);
+}
+
+// ══════════════════════════════════════════
+// VENDING MACHINE IDLE SOUNDS (Web Audio API)
+// All sounds synthesized — no files needed
+// ══════════════════════════════════════════
+let audioCtx = null;
+let soundsEnabled = false;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+// Every ambient machine sound routes through this one node so a beat
+// preview can duck the whole atmosphere in a single ramp.
+let ambientBus = null;
+function getAmbientBus() {
+  const ctx = getAudioCtx();
+  if (!ambientBus) {
+    ambientBus = ctx.createGain();
+    ambientBus.gain.value = 1;
+    ambientBus.connect(ctx.destination);
+  }
+  return ambientBus;
+}
+
+function duckAmbient(on) {
+  try {
+    const ctx = getAudioCtx();
+    const bus = getAmbientBus();
+    bus.gain.cancelScheduledValues(ctx.currentTime);
+    bus.gain.setValueAtTime(bus.gain.value, ctx.currentTime);
+    bus.gain.linearRampToValueAtTime(on ? 0.1 : 1, ctx.currentTime + 0.4);
+  } catch (e) {}
+}
+
+// Master volume helper
+function makeMasterGain(vol = 0.18) {
+  const g = getAudioCtx().createGain();
+  g.gain.value = vol;
+  g.connect(getAmbientBus());
+  return g;
+}
+
+// ── SOUND 1: Compressor hum / electrical buzz ──
+function soundHum() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.06);
+  const duration = 2.2 + Math.random() * 1.5;
+
+  // 60hz electrical hum + harmonics
+  [60, 120, 180, 240].forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(0.4 / (i + 1), ctx.currentTime + 0.1);
+    g.gain.setValueAtTime(0.4 / (i + 1), ctx.currentTime + duration - 0.2);
+    g.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
+    osc.connect(g); g.connect(master);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  });
+
+  // Subtle random wobble on the hum
+  const lfo = ctx.createOscillator();
+  const lfoGain = ctx.createGain();
+  lfo.frequency.value = 0.3 + Math.random() * 0.4;
+  lfoGain.gain.value = 1.5;
+  lfo.connect(lfoGain);
+  lfo.start(ctx.currentTime);
+  lfo.stop(ctx.currentTime + duration);
+}
+
+// ── SOUND 2: Compressor motor kick on/off ──
+function soundMotorKick() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.22);
+
+  // Low thump
+  const buf = ctx.createBuffer(1, ctx.sampleRate * 0.4, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) {
+    const t = i / ctx.sampleRate;
+    data[i] = Math.sin(2 * Math.PI * (80 - 60 * t) * t) * Math.exp(-t * 14);
+  }
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 200;
+
+  src.connect(filter); filter.connect(master);
+  src.start(ctx.currentTime);
+
+  // Follow with mechanical rattle
+  setTimeout(soundMechanicalRattle, 180 + Math.random() * 80);
+}
+
+// ── SOUND 3: Mechanical relay / click ──
+function soundClick() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.35);
+
+  // Sharp transient noise burst
+  const bufLen = Math.floor(ctx.sampleRate * 0.04);
+  const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufLen; i++) {
+    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufLen * 0.15));
+  }
+
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 800 + Math.random() * 400;
+  filter.Q.value = 0.5;
+
+  src.connect(filter); filter.connect(master);
+  src.start(ctx.currentTime);
+
+  // Optional double-click
+  if (Math.random() > 0.4) {
+    const src2 = ctx.createBufferSource();
+    src2.buffer = buf;
+    src2.connect(filter);
+    src2.start(ctx.currentTime + 0.06 + Math.random() * 0.04);
+  }
+}
+
+// ── SOUND 4: Coin mechanism rattle / dispenser clink ──
+function soundMechanicalRattle() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.15);
+  const rattleCount = 3 + Math.floor(Math.random() * 5);
+
+  for (let i = 0; i < rattleCount; i++) {
+    const delay = i * (0.04 + Math.random() * 0.035);
+    const bufLen = Math.floor(ctx.sampleRate * 0.05);
+    const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let j = 0; j < bufLen; j++) {
+      data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufLen * 0.2));
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const g = ctx.createGain();
+    g.gain.value = 0.4 + Math.random() * 0.6;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'highpass';
+    filter.frequency.value = 1200 + Math.random() * 800;
+    src.connect(filter); filter.connect(g); g.connect(master);
+    src.start(ctx.currentTime + delay);
+  }
+}
+
+// ── SOUND 5: Cooling fan spin-up ──
+function soundFanSpinUp() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.08);
+  const duration = 3 + Math.random() * 2;
+
+  // White noise through filter that sweeps up
+  const bufLen = ctx.sampleRate * Math.ceil(duration + 0.5);
+  const buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
+
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.setValueAtTime(200, ctx.currentTime);
+  filter.frequency.exponentialRampToValueAtTime(800 + Math.random() * 400, ctx.currentTime + duration * 0.4);
+  filter.frequency.setValueAtTime(800 + Math.random() * 400, ctx.currentTime + duration - 0.5);
+  filter.frequency.exponentialRampToValueAtTime(180, ctx.currentTime + duration);
+  filter.Q.value = 3;
+
+  const env = ctx.createGain();
+  env.gain.setValueAtTime(0, ctx.currentTime);
+  env.gain.linearRampToValueAtTime(1, ctx.currentTime + duration * 0.35);
+  env.gain.setValueAtTime(1, ctx.currentTime + duration - 0.6);
+  env.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
+
+  src.connect(filter); filter.connect(env); env.connect(master);
+  src.start(ctx.currentTime);
+  src.stop(ctx.currentTime + duration + 0.1);
+}
+
+// ── SOUND 6: Fluorescent light flicker buzz ──
+function soundLightBuzz() {
+  const ctx = getAudioCtx();
+  const master = makeMasterGain(0.05);
+  const flickerCount = 2 + Math.floor(Math.random() * 4);
+  let time = ctx.currentTime;
+
+  for (let i = 0; i < flickerCount; i++) {
+    const dur = 0.08 + Math.random() * 0.18;
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 120 + Math.random() * 30;
+    g.gain.setValueAtTime(0, time);
+    g.gain.linearRampToValueAtTime(0.6, time + 0.01);
+    g.gain.setValueAtTime(0.6, time + dur - 0.01);
+    g.gain.linearRampToValueAtTime(0, time + dur);
+    osc.connect(g); g.connect(master);
+    osc.start(time);
+    osc.stop(time + dur + 0.01);
+    time += dur + 0.05 + Math.random() * 0.15;
+  }
+}
+
+// ── SOUND 7: Full vend drop sequence ──
+// Coil whir → item slides → falls → CLANG into metal tray → settles
+function soundVend() {
+  const ctx = getAudioCtx();
+  const now = ctx.currentTime;
+
+  // Phase 1 (0s): Coil motor engaging
+  const coilMaster = makeMasterGain(0.12);
+  const coilOsc = ctx.createOscillator();
+  const coilOsc2 = ctx.createOscillator();
+  const coilGain = ctx.createGain();
+  coilOsc.type = 'sawtooth'; coilOsc2.type = 'square';
+  coilOsc.frequency.setValueAtTime(160, now);
+  coilOsc.frequency.linearRampToValueAtTime(90, now + 0.45);
+  coilOsc2.frequency.setValueAtTime(80, now);
+  coilOsc2.frequency.linearRampToValueAtTime(45, now + 0.45);
+  const coilMix = ctx.createGain(); coilMix.gain.value = 0.3;
+  coilGain.gain.setValueAtTime(0, now);
+  coilGain.gain.linearRampToValueAtTime(1, now + 0.06);
+  coilGain.gain.setValueAtTime(1, now + 0.35);
+  coilGain.gain.linearRampToValueAtTime(0, now + 0.45);
+  const coilFilter = ctx.createBiquadFilter();
+  coilFilter.type = 'lowpass'; coilFilter.frequency.value = 600;
+  coilOsc.connect(coilGain);
+  coilOsc2.connect(coilMix); coilMix.connect(coilGain);
+  coilGain.connect(coilFilter); coilFilter.connect(coilMaster);
+  coilOsc.start(now); coilOsc.stop(now + 0.5);
+  coilOsc2.start(now); coilOsc2.stop(now + 0.5);
+
+  // Phase 2 (0.38s): Item tips off coil — plastic scrape
+  setTimeout(() => {
+    const c = getAudioCtx();
+    const m = makeMasterGain(0.18);
+    const len = Math.floor(c.sampleRate * 0.12);
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      const t = i / c.sampleRate;
+      d[i] = (Math.random()*2-1)*Math.exp(-t*28)*0.7 + Math.sin(2*Math.PI*340*t)*Math.exp(-t*22)*0.3;
+    }
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type='bandpass'; f.frequency.value=1800; f.Q.value=1.2;
+    src.connect(f); f.connect(m); src.start();
+  }, 380);
+
+  // Phase 3 (0.52s): Falling — whoosh sweeping down
+  setTimeout(() => {
+    const c = getAudioCtx();
+    const m = makeMasterGain(0.07);
+    const len = Math.floor(c.sampleRate * 0.28);
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random()*2-1;
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type='bandpass';
+    f.frequency.setValueAtTime(2200, c.currentTime);
+    f.frequency.exponentialRampToValueAtTime(600, c.currentTime + 0.25);
+    f.Q.value = 2.5;
+    const env = c.createGain();
+    env.gain.setValueAtTime(0.6, c.currentTime);
+    env.gain.linearRampToValueAtTime(0, c.currentTime + 0.25);
+    src.connect(f); f.connect(env); env.connect(m);
+    src.start(); src.stop(c.currentTime + 0.3);
+  }, 520);
+
+  // Phase 4 (0.78s): PRIMARY IMPACT — metallic CLANG on tray
+  setTimeout(() => {
+    const c = getAudioCtx();
+
+    // Low body thud
+    const impM = makeMasterGain(0.55);
+    const tLen = Math.floor(c.sampleRate * 0.35);
+    const tBuf = c.createBuffer(1, tLen, c.sampleRate);
+    const tD = tBuf.getChannelData(0);
+    for (let i = 0; i < tLen; i++) {
+      const t = i / c.sampleRate;
+      tD[i] = Math.sin(2*Math.PI*72*t)*Math.exp(-t*22)*0.6
+             + Math.sin(2*Math.PI*145*t)*Math.exp(-t*30)*0.3
+             + (Math.random()*2-1)*Math.exp(-t*40)*0.15;
+    }
+    const tSrc = c.createBufferSource(); tSrc.buffer = tBuf;
+    const tF = c.createBiquadFilter(); tF.type='lowpass'; tF.frequency.value=380;
+    tSrc.connect(tF); tF.connect(impM); tSrc.start();
+
+    // Metallic ring — tray resonating
+    const ringM = makeMasterGain(0.28);
+    [520,890,1340,2100].forEach((freq,i) => {
+      const o = c.createOscillator(); const g = c.createGain();
+      o.type='sine'; o.frequency.value = freq + Math.random()*30;
+      g.gain.setValueAtTime(0.7/(i+1), c.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + 0.55 - i*0.06);
+      o.connect(g); g.connect(ringM);
+      o.start(c.currentTime); o.stop(c.currentTime + 0.6);
+    });
+
+    // Sharp metallic crack transient
+    const crM = makeMasterGain(0.38);
+    const crLen = Math.floor(c.sampleRate * 0.06);
+    const crBuf = c.createBuffer(1, crLen, c.sampleRate);
+    const crD = crBuf.getChannelData(0);
+    for (let i = 0; i < crLen; i++) crD[i] = (Math.random()*2-1)*Math.exp(-i/(crLen*0.08));
+    const crSrc = c.createBufferSource(); crSrc.buffer = crBuf;
+    const crF = c.createBiquadFilter(); crF.type='highpass'; crF.frequency.value=2500;
+    crSrc.connect(crF); crF.connect(crM); crSrc.start();
+
+  }, 780);
+
+  // Phase 5 (1.0s): Bounces in tray — 2-3 decaying impacts
+  setTimeout(() => {
+    const c = getAudioCtx();
+    const bounces = 2 + Math.floor(Math.random()*2);
+    for (let b = 0; b < bounces; b++) {
+      const delay = b * (0.11 + Math.random()*0.08);
+      const bM = makeMasterGain(0.22/(b+1.5));
+      const bLen = Math.floor(c.sampleRate * 0.14);
+      const bBuf = c.createBuffer(1, bLen, c.sampleRate);
+      const bD = bBuf.getChannelData(0);
+      for (let i = 0; i < bLen; i++) {
+        const t = i / c.sampleRate;
+        bD[i] = Math.sin(2*Math.PI*(90+b*20)*t)*Math.exp(-t*35)*0.5
+               + (Math.random()*2-1)*Math.exp(-t*50)*0.25;
+      }
+      const bSrc = c.createBufferSource(); bSrc.buffer = bBuf;
+      const bF = c.createBiquadFilter(); bF.type='bandpass';
+      bF.frequency.value = 300+b*120; bF.Q.value=0.8;
+      bSrc.connect(bF); bF.connect(bM);
+      setTimeout(() => bSrc.start(), delay*1000);
+    }
+  }, 1000);
+
+  // Phase 6 (1.3s): Final settle — tiny scrape to rest
+  setTimeout(() => {
+    const c = getAudioCtx();
+    const m = makeMasterGain(0.09);
+    const len = Math.floor(c.sampleRate * 0.18);
+    const buf = c.createBuffer(1, len, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) {
+      const t = i / c.sampleRate;
+      d[i] = (Math.random()*2-1)*Math.exp(-t*16)*0.5;
+    }
+    const src = c.createBufferSource(); src.buffer = buf;
+    const f = c.createBiquadFilter(); f.type='bandpass'; f.frequency.value=900; f.Q.value=1.5;
+    src.connect(f); f.connect(m); src.start();
+  }, 1300);
+}
+
+
+// ── GAS STATION FRIDGE HUM ──
+// That back-of-store compressor you can just barely hear —
+// present, warm, low. On 10s, off 3s, loops forever.
+let fridgeNodes = null;
+let fridgeRunning = false;
+
+let fridgeMaster = null;
+
+// Built once and left running. The old version ran 10s on, 3s off to mimic a
+// real compressor kicking in and out; the machine is meant to hum without a
+// break while it's in use, so the cycle is gone.
+function startFridgeHum() {
+  if (fridgeRunning) return;
+  fridgeRunning = true;
+  fridgeMaster = buildFridgeHum();
+}
+
+function stopFridgeHum() {
+  if (!fridgeRunning && !fridgeMaster) return;
+  fridgeRunning = false;
+  const master = fridgeMaster;          // capture before clearing: a restart
+  const nodes  = fridgeNodes;           // during the fade must not kill the new one
+  fridgeMaster = null;
+  fridgeNodes  = null;
+  const kill = () => { if (nodes) nodes.forEach(n => { try { n.stop ? n.stop() : null; } catch(e) {} }); };
+  if (master) { try { fadeFridgeOut(master, 1.4, kill); } catch(e) { kill(); } }
+  else kill();
+}
+
+function buildFridgeHum() {
+  const ctx = getAudioCtx();
+  const nodes = [];
+  const now = ctx.currentTime;
+
+  // ── Master ── sitting just audible, not intrusive
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0, now);
+  master.gain.linearRampToValueAtTime(0.09, now + 2.2); // slow, lazy fade in
+  master.connect(getAmbientBus());
+  nodes.push(master);
+
+  // ── Compressor body tone — the main 'mmmm' ──
+  // Real gas station coolers hum around 55–65hz, slightly detuned
+  const baseFreq = 58 + Math.random() * 4;
+  const comp = ctx.createOscillator();
+  comp.type = 'sine';
+  comp.frequency.setValueAtTime(baseFreq, now);
+  // Lazy drift — compressor load shifts slowly
+  comp.frequency.linearRampToValueAtTime(baseFreq + 0.6, now + 4);
+  comp.frequency.linearRampToValueAtTime(baseFreq - 0.4, now + 8);
+  comp.frequency.linearRampToValueAtTime(baseFreq + 0.3, now + 10);
+  const compGain = ctx.createGain();
+  compGain.gain.value = 1.0;
+  comp.connect(compGain); compGain.connect(master);
+  comp.start(); nodes.push(comp);
+
+  // ── Second harmonic — makes it feel physical, not digital ──
+  const harm2 = ctx.createOscillator();
+  harm2.type = 'sine';
+  harm2.frequency.value = baseFreq * 2 + 0.3; // slight detune for beating
+  const harm2Gain = ctx.createGain();
+  harm2Gain.gain.value = 0.28;
+  harm2.connect(harm2Gain); harm2Gain.connect(master);
+  harm2.start(); nodes.push(harm2);
+
+  // ── Third harmonic — adds a little grit ──
+  const harm3 = ctx.createOscillator();
+  harm3.type = 'triangle'; // softer than sawtooth
+  harm3.frequency.value = baseFreq * 3 - 0.5;
+  const harm3Gain = ctx.createGain();
+  harm3Gain.gain.value = 0.10;
+  harm3.connect(harm3Gain); harm3Gain.connect(master);
+  harm3.start(); nodes.push(harm3);
+
+  // ── Mechanical rattle layer — the cooler cabinet vibrating ──
+  // Short looping noise, heavily bandpassed low
+  const rattleLen = ctx.sampleRate * 6;
+  const rattleBuf = ctx.createBuffer(2, rattleLen, ctx.sampleRate);
+  for (let ch = 0; ch < 2; ch++) {
+    const d = rattleBuf.getChannelData(ch);
+    for (let i = 0; i < rattleLen; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const rattleSrc = ctx.createBufferSource();
+  rattleSrc.buffer = rattleBuf;
+  rattleSrc.loop = true;
+  rattleSrc.loopStart = 0;
+  rattleSrc.loopEnd = 6;
+  // LP filter — keeps only the low rumble
+  const rattleLP = ctx.createBiquadFilter();
+  rattleLP.type = 'lowpass';
+  rattleLP.frequency.value = 95;
+  rattleLP.Q.value = 0.8;
+  const rattleGain = ctx.createGain();
+  rattleGain.gain.value = 0.22;
+  rattleSrc.connect(rattleLP); rattleLP.connect(rattleGain); rattleGain.connect(master);
+  rattleSrc.start(); nodes.push(rattleSrc);
+
+  // ── Air / fan layer — the faint airflow hiss ──
+  // Higher frequency, very quiet — like air coming through vents
+  const airLen = ctx.sampleRate * 4;
+  const airBuf = ctx.createBuffer(1, airLen, ctx.sampleRate);
+  const airData = airBuf.getChannelData(0);
+  for (let i = 0; i < airLen; i++) airData[i] = Math.random() * 2 - 1;
+  const airSrc = ctx.createBufferSource();
+  airSrc.buffer = airBuf;
+  airSrc.loop = true;
+  const airBP = ctx.createBiquadFilter();
+  airBP.type = 'bandpass';
+  airBP.frequency.value = 280;
+  airBP.Q.value = 0.6;
+  const airHP = ctx.createBiquadFilter();
+  airHP.type = 'highpass';
+  airHP.frequency.value = 180;
+  const airGain = ctx.createGain();
+  airGain.gain.value = 0.035; // barely there — just texture
+  airSrc.connect(airBP); airBP.connect(airHP); airHP.connect(airGain); airGain.connect(master);
+  airSrc.start(); nodes.push(airSrc);
+
+  // ── Subtle amplitude modulation ──
+  // Real compressors pulse very slowly — around 0.8hz
+  const lfo = ctx.createOscillator();
+  lfo.type = 'sine';
+  lfo.frequency.value = 0.75 + Math.random() * 0.3;
+  const lfoGain = ctx.createGain();
+  lfoGain.gain.value = 0.06; // tiny wobble — just keeps it feeling alive
+  lfo.connect(lfoGain);
+  lfoGain.connect(master.gain);
+  lfo.start(); nodes.push(lfo);
+
+  fridgeNodes = nodes;
+  return master;
+}
+
+function fadeFridgeOut(masterGain, duration, cb) {
+  const ctx = getAudioCtx();
+  masterGain.gain.cancelScheduledValues(ctx.currentTime);
+  masterGain.gain.setValueAtTime(masterGain.gain.value, ctx.currentTime);
+  masterGain.gain.linearRampToValueAtTime(0, ctx.currentTime + duration);
+  setTimeout(cb, duration * 1000 + 60);
+}
+
+
+// ── PLAYLIST of idle sounds ──
+const idleSounds = [
+  { fn: soundHum,            weight: 3, name: 'compressor hum' },
+  { fn: soundMotorKick,      weight: 2, name: 'motor kick' },
+  { fn: soundClick,          weight: 4, name: 'relay click' },
+  { fn: soundMechanicalRattle, weight: 3, name: 'rattle' },
+  { fn: soundFanSpinUp,      weight: 2, name: 'fan spin' },
+  { fn: soundLightBuzz,      weight: 2, name: 'light buzz' },
+];
+
+function pickWeightedSound() {
+  const total = idleSounds.reduce((s, x) => s + x.weight, 0);
+  let r = Math.random() * total;
+  for (const sound of idleSounds) {
+    r -= sound.weight;
+    if (r <= 0) return sound.fn;
+  }
+  return idleSounds[0].fn;
+}
+
+let idleTimer = null;
+
+function scheduleNextIdle() {
+  clearTimeout(idleTimer);               // never let two chains run at once
+  const delay = (15 + Math.random() * 15) * 1000;
+  idleTimer = setTimeout(() => {
+    if (soundsEnabled && ambientActive) {
+      try { pickWeightedSound()(); } catch(e) {}
+    }
+    if (ambientActive) scheduleNextIdle();
+  }, delay);
+}
+
+function stopIdleSounds() { clearTimeout(idleTimer); idleTimer = null; }
+
+// ══════════════════════════════════════════
+// AMBIENCE: on while the machine is in use, off after a minute idle
+// ══════════════════════════════════════════
+const AMBIENT_IDLE_MS = 60000;
+let ambientActive = false;
+let lastActivity = Date.now();
+
+function startAmbient() {
+  if (ambientActive || !soundsEnabled) return;
+  ambientActive = true;
+  try { startFridgeHum(); } catch(e) {}
+  scheduleNextIdle();
+}
+
+function stopAmbient() {
+  if (!ambientActive) return;
+  ambientActive = false;
+  stopIdleSounds();
+  try { stopFridgeHum(); } catch(e) {}   // fades out rather than cutting
+}
+
+function noteActivity() {
+  lastActivity = Date.now();
+  if (soundsEnabled && !ambientActive) startAmbient();
+}
+
+['pointerdown','pointermove','keydown','wheel','touchstart','click'].forEach(ev =>
+  window.addEventListener(ev, noteActivity, { passive: true }));
+
+setInterval(() => {
+  if (!ambientActive) return;
+  // a preview mid-play means the machine is being used, even hands-off
+  if (typeof pxPlaying !== 'undefined' && pxPlaying) { lastActivity = Date.now(); return; }
+  if (Date.now() - lastActivity > AMBIENT_IDLE_MS) stopAmbient();
+}, 1000);
+
+// don't leave a buried tab humming
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stopAmbient(); else noteActivity();
+});
+
+// Also play sounds on interactions
+const _origSelectBeat = selectBeat;
+selectBeat = function(id) {
+  _origSelectBeat(id);
+  if (soundsEnabled) try { soundClick(); } catch(e) {}
+};
+
+const _origPush = pushButton;
+pushButton = function() {
+  _origPush();
+  if (soundsEnabled) try { soundVend(); } catch(e) {}
+};
+
+// ── SOUND TOGGLE BUTTON ──
+function initSoundSystem() {
+  // Inject toggle button into nav
+  const navRight = document.querySelector('.nav-right');
+  const btn = document.createElement('button');
+  btn.id = 'soundToggle';
+  btn.className = 'icon-btn';
+  btn.type = 'button';
+  btn.innerHTML = `<span class="ib-glyph">🔇</span>`;
+  // An icon alone says nothing on its own — keep a label for the tooltip
+  // and for anyone on a screen reader.
+  btn.title = 'Turn machine sound on';
+  btn.setAttribute('aria-label', 'Turn machine sound on');
+  btn.setAttribute('aria-pressed', 'false');
+  btn.onclick = toggleSound;
+  navRight.insertBefore(btn, navRight.firstChild);
+}
+
+function paintSoundBtn(on) {
+  const btn = document.getElementById('soundToggle');
+  if (!btn) return;
+  btn.innerHTML = `<span class="ib-glyph">${on ? '🔊' : '🔇'}</span>`;
+  btn.classList.toggle('on', on);
+  const label = on ? 'Turn machine sound off' : 'Turn machine sound on';
+  btn.title = label;
+  btn.setAttribute('aria-label', label);
+  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+}
+
+function toggleSound() {
+  if (!soundsEnabled) {
+    getAudioCtx().resume().then(() => {
+      soundsEnabled = true;
+      paintSoundBtn(true);
+      try { soundClick(); } catch(e) {}
+      noteActivity();            // starts the hum and the idle sounds
+    });
+  } else {
+    soundsEnabled = false;
+    paintSoundBtn(false);
+    stopAmbient();
+  }
+}
+
+// ══════════════════════════════════════════
+// THANK YOU CARD (post-purchase)
+// ══════════════════════════════════════════
+function showThankYouCard(beat, price) {
+  const modal = document.getElementById('thankYouModal');
+  document.getElementById('tyBeatName').textContent = beat.title;
+  document.getElementById('tyBeatMeta').textContent = `${beat.cat.toUpperCase()} · ${beat.bpm} BPM · ${beat.key} · PROD. BY ${beat.prod}`;
+  document.getElementById('tyPrice').textContent = `$${price}`;
+  document.getElementById('tyDate').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeThankYou() {
+  document.getElementById('thankYouModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+buildTicker();
+buildGenrePills();
+  buildTierPills();
+buildMachine();
+buildKeypad();
+buildRecentSales();
+updateScreen('HEAVEN\nIS\nRARE');
+initSoundSystem();
+
+
+// ══════════════════════════════════════════
+// BL&T REAL AUDIO — lazy loaded
+// ══════════════════════════════════════════
+
+
+
+
+
+
+
+// ══════════════════════════════════════════
+// LOADING SCREEN
+// ══════════════════════════════════════════
+(function() {
+  document.body.style.overflow = 'hidden';
+
+  function spawnMotes() {
+    const frame = document.getElementById('loader-logo-frame');
+    if (!frame) return;
+    const colors = ['rgba(255,20,60,','rgba(255,80,140,','rgba(255,160,200,','rgba(200,10,40,','rgba(255,255,255,'];
+    for (let i = 0; i < 22; i++) {
+      const m = document.createElement('div');
+      m.className = 'loader-mote';
+      const angle = Math.random() * Math.PI * 2;
+      const r = 20 + Math.random() * 80;
+      const sx = Math.cos(angle) * r, sy = Math.sin(angle) * r;
+      const drift = 50 + Math.random() * 100;
+      const da = angle + (Math.random() - 0.5) * 1.4;
+      const size = 1 + Math.random() * 3;
+      const col = colors[Math.floor(Math.random() * colors.length)];
+      m.style.cssText = `left:calc(50% + ${sx}px);top:calc(50% + ${sy}px);width:${size}px;height:${size}px;background:${col}${0.4+Math.random()*0.6});box-shadow:0 0 ${size*2}px ${col}0.8);--tx1:${Math.cos(da)*drift*0.25}px;--ty1:${Math.sin(da)*drift*0.25-15}px;--tx2:${Math.cos(da)*drift*0.6}px;--ty2:${Math.sin(da)*drift*0.6-55}px;--tx3:${Math.cos(da)*drift}px;--ty3:${Math.sin(da)*drift-110}px;--dur:${1.2+Math.random()*1.2}s;--delay:${0.3+Math.random()*1.6}s;opacity:0;`;
+      frame.appendChild(m);
+    }
+  }
+
+  function glitchLoop() {
+    const img = document.getElementById('loader-logo-img');
+    if (!img) return;
+    if (Math.random() > 0.55) {
+      const shiftX = (Math.random() - 0.5) * 18;
+      img.style.filter = `brightness(1.1) hue-rotate(${Math.random()*30-15}deg)`;
+      img.style.transform = `translateX(${shiftX}px)`;
+      setTimeout(() => { img.style.filter = ''; img.style.transform = ''; }, 60 + Math.random() * 80);
+    }
+  }
+
+  function flashBurst() {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
+    const flash = document.createElement('div');
+    flash.style.cssText = 'position:absolute;inset:0;z-index:20;pointer-events:none;background:rgba(255,20,60,0.18);transition:opacity 0.12s ease;';
+    loader.appendChild(flash);
+    setTimeout(() => { flash.style.opacity = '0'; }, 80);
+    setTimeout(() => flash.remove(), 300);
+  }
+
+  function dismissLoader() {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
+    flashBurst();
+    setTimeout(() => {
+      loader.classList.add('fade-out');
+      setTimeout(() => { loader.classList.add('gone'); document.body.style.overflow = ''; }, 650);
+    }, 100);
+  }
+
+  setTimeout(spawnMotes, 250);
+  setTimeout(flashBurst, 320);
+
+  let glitchTimer;
+  const startTime = Date.now();
+  function scheduleGlitch() {
+    glitchTimer = setTimeout(() => {
+      glitchLoop();
+      if (Date.now() - startTime < 2600) scheduleGlitch();
+    }, 80 + Math.random() * 260);
+  }
+  setTimeout(scheduleGlitch, 600);
+  setTimeout(dismissLoader, 3400);
+})();
+
+</script>
+<!-- CATALOGUE -->
+<div class="cat-overlay" id="catOverlay" onclick="if(event.target===this)closeCatalog()">
+  <div class="cat-wrap">
+    <div class="cat-head">
+      <div>
+        <div class="cat-title">CATALOGUE</div>
+        <div class="cat-sub">everything in the machine</div>
+      </div>
+      <button class="cat-close" onclick="closeCatalog()" aria-label="Close catalogue">✕</button>
+    </div>
+
+    <div id="catTop"></div>
+
+    <div class="cat-search-row">
+      <input class="cat-search" id="catSearch" type="search" autocomplete="off"
+             placeholder="Search by name…" oninput="renderCatalog()" />
+      <div class="cat-count" id="catCount"></div>
+    </div>
+    <div class="cat-pills" id="catPills"></div>
+    <div class="cat-list" id="catList"></div>
+  </div>
+</div>
+
+<!-- THANK YOU CARD MODAL -->
+<div class="ty-overlay" id="thankYouModal" onclick="if(event.target===this)closeThankYou()">
+  <div class="ty-card">
+    <div class="ty-top-rule"></div>
+    <div class="ty-inner">
+      <div class="ty-eyebrow">Koaka Studios · Vol. I</div>
+      <div class="ty-heading">HEAVEN<br><em>IS RARE</em></div>
+      <div class="ty-divider-line"></div>
+      <div class="ty-body-text">
+        Freedom is not given —<br>
+        it is chosen, in every moment,<br>
+        regardless of circumstance.
+      </div>
+      <div class="ty-divider-line"></div>
+      <div class="ty-beat-row">
+        <div>
+          <div class="ty-beat-name" id="tyBeatName">—</div>
+          <div class="ty-beat-meta" id="tyBeatMeta">—</div>
+        </div>
+        <div class="ty-price" id="tyPrice">—</div>
+      </div>
+      <div class="ty-date" id="tyDate">—</div>
+      <div class="ty-tagline">May your dreams never be lost.</div>
+      <button class="ty-close-btn" onclick="closeThankYou()">CLOSE</button>
+    </div>
+    <div class="ty-bottom-rule"></div>
+  </div>
+</div>
+
+<!-- MAILING LIST — audience you own, not rented from a platform -->
+<div class="ml-strip" id="mlStrip">
+  <div class="ml-kicker">Koaka Studios</div>
+  <div class="ml-title">NEW BEATS FIRST</div>
+  <div class="ml-sub">before they reach the machine</div>
+  <form class="ml-form" id="mlForm" method="POST" target="_blank" rel="noopener">
+    <input class="ml-input" type="email" name="email" id="mlEmail"
+           placeholder="your@email.com" required autocomplete="email" />
+    <button class="ml-btn" type="submit">NOTIFY ME</button>
+  </form>
+  <div class="ml-said" id="mlSaid">
+    CHECK YOUR INBOX — CONFIRM THE EMAIL TO BE ADDED
+  </div>
+  <div class="ml-note">
+    New beat drops only. No resale, no sharing. Unsubscribe any time.
+  </div>
+</div>
+
+<script>
+// ── Mailing list ────────────────────────────────────────────
+// Paste the form action URL from your mailing provider (Kit, MailerLite,
+// Mailchimp, Beehiiv…) and set the field name they expect. The strip stays
+// hidden while `endpoint` is empty — better no form at all than a box that
+// quietly throws addresses away. Double opt-in on the provider's side is what
+// actually verifies the address; nothing on this page can.
+const MAILING_LIST = {
+  endpoint: '',        // e.g. 'https://app.kit.com/forms/1234567/subscriptions'
+  field:    'email'    // Mailchimp uses 'EMAIL', Kit uses 'email_address'
+};
+
+(function initMailingList(){
+  if (!MAILING_LIST.endpoint) return;           // not wired -> never shown
+  const strip = document.getElementById('mlStrip');
+  const form  = document.getElementById('mlForm');
+  const input = document.getElementById('mlEmail');
+  input.name  = MAILING_LIST.field;
+  form.action = MAILING_LIST.endpoint;
+  strip.classList.add('live');
+  form.addEventListener('submit', () => {
+    // The provider's own page confirms in the new tab; this only tells the
+    // visitor what still has to happen, which is true either way.
+    document.getElementById('mlSaid').style.display = 'block';
+    setTimeout(() => { input.value = ''; }, 300);
+  });
+})();
+</script>
+
+<div class="hir-footer-line">
+  Heaven is rare. So is the courage to keep dreaming. — Koaka Studios
+</div>
+</body>
+</html>

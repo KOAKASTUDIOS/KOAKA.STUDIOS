@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Out of stock — Koaka Studios</title>
+<meta name="theme-color" content="#060304">
+<link rel="icon" type="image/png" href="/assets/favicon.png" id="fav">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#060304;--pink:#ff2d78;--hot:#ff5eb0;--text:#f0dce8;--muted:#6a3a52}
+  body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;
+       padding:32px 20px;text-align:center;overflow:hidden}
+  .glow{position:fixed;inset:0;pointer-events:none;
+        background:radial-gradient(circle at 50% 40%,rgba(255,45,120,0.10),transparent 60%)}
+  .wrap{position:relative;max-width:460px}
+  .code{font-family:'Bebas Neue',sans-serif;font-size:7rem;line-height:0.8;letter-spacing:0.06em;
+        background:linear-gradient(160deg,#777 0%,#fff 34%,#bbb 54%,#fff 74%,#888 100%);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .slot{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;
+        text-transform:uppercase;color:rgba(255,100,160,0.55);margin:14px 0 22px}
+  .line{height:1px;background:rgba(255,45,120,0.2);margin:22px 0}
+  .msg{font-family:'Dancing Script',cursive;font-size:1.3rem;line-height:1.6;
+       color:rgba(255,160,200,0.72)}
+  .back{display:inline-block;margin-top:26px;font-family:'DM Mono',monospace;font-size:0.6rem;
+        letter-spacing:0.16em;text-decoration:none;color:var(--hot);
+        border:1px solid var(--pink);padding:12px 24px;transition:background .2s}
+  .back:hover{background:rgba(255,45,120,0.12)}
+  .foot{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.14em;
+        color:rgba(255,255,255,0.16);margin-top:30px}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="code">404</div>
+    <div class="slot">Slot empty · selection unavailable</div>
+    <div class="line"></div>
+    <div class="msg">This one never made it to the shelf.</div>
+    <div class="line"></div>
+    <a class="back" href="/" id="home">BACK TO THE MACHINE</a>
+    <div class="foot">KOAKA STUDIOS · HEAVEN IS RARE</div>
+  </div>
+<script>
+// On a github.io project URL the site lives under /<repo>/, so a bare "/"
+// would send people to the account root instead of the store.
+(function(){
+  var seg = location.pathname.split('/');
+  var base = (location.hostname.slice(-10) === '.github.io' && seg.length > 2 && seg[1])
+             ? '/' + seg[1] + '/' : '/';
+  document.getElementById('home').href = base;
+  document.getElementById('fav').href  = base + 'assets/favicon.png';
+})();
+</script>
+</body>
+</html>
